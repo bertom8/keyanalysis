@@ -1,0 +1,39 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="org.keyanalysis" transaction-type="RESOURCE_LOCAL">
+        <description>
+            MongoDB adatbazis kapcsolat
+        </description>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.keyanalysis.Model.User</class>
+        <class>org.keyanalysis.Model.Storage</class>
+		<class>org.keyanalysis.Model.Item</class>
+		<class>org.keyanalysis.Model.Log</class>
+		<class>org.keyanalysis.Model.Tweet</class>
+
+         <properties>
+         
+         	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/keyanalysis?useUnicode=true&amp;characterEncoding=UTF-8" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="" />
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <property name="hibernate.show_sql" value="true" /> <!-- Debugoláshoz -->
+            <property name="hibernate.hbm2ddl.auto" value="none" /> 
+         	<!-- 
+           	<property name="hibernate.ogm.datastore.provider" value="mongodb" />
+    		<property name="hibernate.ogm.mongodb.database" value="keyanalysis" />
+    		<property name="hibernate.ogm.mongodb.host" value="127.0.0.1 "/>
+      		<property name="hibernate.ogm.mongodb.port" value="27017"/>
+            <property name="hibernate.ogm.datastore.grid_dialect"
+					value="org.hibernate.ogm.datastore.mongodb.MongoDBDialect" />
+            <property name="hibernate.show_sql" value="false" /> --> <!-- Debugoláshoz -->
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

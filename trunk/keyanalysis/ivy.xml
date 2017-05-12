@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE ivy-module [
+	<!ENTITY vaadin.version "7.6.7">
+]>
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info organisation="com.example" module="v7proj" />
+	<configurations>
+		<!-- The default configuration, which should be deployed to the server -->
+		<conf name="default" />
+		<!-- A configuration only needed when compiling the widget set. Should 
+			not be deployed to the server -->
+		<conf name="widgetset-compile" />
+		<!-- A configuration used in compilation of server side classes only. Should 
+			be deployed to the server -->
+		<conf name="nodeploy" />
+	</configurations>
+	<dependencies defaultconf="default" defaultconfmapping="default->default">
+		<!-- The core server part of Vaadin -->
+		<dependency org="com.vaadin" name="vaadin-server" rev="&vaadin.version;" />
+
+		<!-- Vaadin themes -->
+		<dependency org="com.vaadin" name="vaadin-themes" rev="&vaadin.version;" />
+
+		<!-- Push support -->
+		<dependency org="com.vaadin" name="vaadin-push" rev="&vaadin.version;" />
+
+		<!-- Servlet 3.0 API -->
+		<dependency org="javax.servlet" name="javax.servlet-api"
+			rev="3.0.1" conf="nodeploy->default" />
+
+		<!-- TestBench 4 -->
+		<dependency org="com.vaadin" name="vaadin-testbench-api"
+			rev="latest.release" conf="nodeploy -> default" />
+
+		<!-- Precompiled DefaultWidgetSet -->
+		<dependency org="com.vaadin" name="vaadin-client-compiled"
+			rev="&vaadin.version;" />
+
+		<!-- Vaadin client side, needed for widget set compilation -->
+		<dependency org="com.vaadin" name="vaadin-client" rev="&vaadin.version;"
+			conf="widgetset-compile->default" />
+
+		<!-- Compiler for custom widget sets. Should not be deployed -->
+		<dependency org="com.vaadin" name="vaadin-client-compiler"
+			rev="&vaadin.version;" conf="widgetset-compile->default" />
+
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16 -->
+		<dependency org="org.bouncycastle" name="bcprov-jdk16" rev="1.46" />
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency org="com.google.code.gson" name="gson" rev="2.4" />
+
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.javacsv/javacsv -->
+		<dependency org="net.sourceforge.javacsv" name="javacsv"
+			rev="2.0" />
+
+		<!-- https://mvnrepository.com/artifact/org.gnu/gnu-crypto -->
+		<dependency org="org.gnu" name="gnu-crypto" rev="2.0.1" />
+
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency org="commons-codec" name="commons-codec" rev="1.10" />
+		
+		<!-- https://mvnrepository.com/artifact/com.google.code.externalsortinginjava/externalsortinginjava -->
+		<dependency org="com.google.code.externalsortinginjava" name="externalsortinginjava" rev="0.1.9"/>
+
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1.1"/>
+		
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+		<dependency org="org.mongodb" name="mongo-java-driver" rev="3.3.0"/>
+		
+		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
+		<dependency org="org.twitter4j" name="twitter4j-core" rev="4.0.4"/>
+		
+		<!-- https://mvnrepository.com/artifact/biz.source_code/base64coder -->
+		<dependency org="biz.source_code" name="base64coder" rev="2010-12-19"/>
+
+		<dependency org="org.hibernate" name="hibernate-core" rev="5.0.1.Final"/>
+		<dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.0.1.Final"/>	
+		<dependency org="org.hibernate.common" name="hibernate-commons-annotations" rev="4.0.4.Final"/>
+    	<dependency org="org.hibernate" name="hibernate-validator" rev="5.0.1.Final"/>    
+    	<dependency org="org.hibernate" name="hibernate-envers" rev="5.0.1.Final"/>
+    	<dependency org="org.hibernate.javax.persistence" name="hibernate-jpa-2.1-api" rev="1.0.0.Final"/> 
+		
+		<dependency org="com.vaadin.addon" name="jpacontainer" rev="3.2.0"/>
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.36"/>
+    	<dependency org="org.vaadin.addon" name="confirmdialog" rev="2.1.3" />
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
+		<dependency org="org.apache.commons" name="commons-io" rev="1.3.2"/>
+		
+		
+	</dependencies>
+</ivy-module>
