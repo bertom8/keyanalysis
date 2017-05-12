@@ -102,12 +102,16 @@ public class UploadWindow extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (uploaderService.isDone()) {
+					key.setValue(
+							org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(key.getValue()));
+					hamming.setValue(
+							org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(hamming.getValue()));
 					if ( hamming.getValue() != null && !("".equals(hamming.getValue())) ) {
 						if (!hamming.getValue().matches("[0][\\.|\\,]\\d+")) {
 							new Notification("Error", "Give a correct Hamming value!", Type.ERROR_MESSAGE).show(Page.getCurrent());
 							return;
 						}
-								
+							
 						if ((Double.parseDouble(hamming.getValue()) > 0 && Double.parseDouble(hamming.getValue()) < 1))
 							HammingDist = Double.parseDouble(hamming.getValue());
 					}	
