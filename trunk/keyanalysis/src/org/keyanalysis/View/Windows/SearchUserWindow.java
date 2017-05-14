@@ -10,12 +10,12 @@ public class SearchUserWindow extends Window {
 
 	public SearchUserWindow() {
 		super();
-		setCaption("Search");
-		//setStyleName(Constants.STYLE_MAIN_TITLE);
-		setSizeFull();
-		final TableCreatorUtility tcu = new TableCreatorUtility("Search",User.class,this);
+		this.setCaption("Search");
+		// setStyleName(Constants.STYLE_MAIN_TITLE);
+		this.setSizeFull();
+		final TableCreatorUtility tcu = new TableCreatorUtility("Search", User.class, this);
 		final GridLayout layout = tcu.createTableLayout();
 		layout.setId("scrollstyleSearch");
-		setContent(layout);
+		this.setContent(layout);
 	}
 }

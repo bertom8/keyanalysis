@@ -20,24 +20,24 @@ public class LineComplex extends AbstractJavaScriptComponent {
 	private double std;
 
 	public void sendComplexTypes() {
-		getRpcProxy(LineComplexRpc.class).sendComplexTypes(list, avg, std);
+		this.getRpcProxy(LineComplexRpc.class).sendComplexTypes(this.list, this.avg, this.std);
 	}
 
-	public LineComplex(List<Double> list, double avg, double std) {
-		this.list = new ArrayList<Double>(list);
+	public LineComplex(final List<Double> list, final double avg, final double std) {
+		this.list = new ArrayList<>(list);
 		this.avg = avg;
 		this.std = std;
-		sendComplexTypes();
+		this.sendComplexTypes();
 	}
 
 	public LineComplex() {
 	}
 
 	public List<?> getList() {
-		return list;
+		return this.list;
 	}
 
-	public void setList(List<Double> list) {
+	public void setList(final List<Double> list) {
 		this.list = list;
 	}
 }

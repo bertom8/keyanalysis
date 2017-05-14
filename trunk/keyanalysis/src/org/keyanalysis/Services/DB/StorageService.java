@@ -9,11 +9,11 @@ import org.keyanalysis.Model.User;
 
 public class StorageService {
 	private static EntityManager em;
-	
-	public static boolean getStorage(final User u, Storage s) {
+
+	public static boolean getStorage(final User u, final Storage s) {
 		boolean succed = false;
 		em = CreateService.createEntityManager();
-		Storage stor = em.find(Storage.class, u.getStorage().getId());
+		final Storage stor = em.find(Storage.class, u.getStorage().getId());
 		if (stor != null) {
 			s.setId(stor.getId());
 			s.setDeleted(stor.isDeleted());
@@ -29,18 +29,18 @@ public class StorageService {
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			Storage s = new Storage();
+			final Storage s = new Storage();
 			em.persist(s);
 			em.flush();
-			int id =  s.getId();
+			final int id = s.getId();
 			tx.commit();
 			return id;
-		} catch(HibernateException e) {
-			if (tx != null && tx.isActive())
+		} catch (final HibernateException e) {
+			if (tx != null && tx.isActive()) {
 				tx.rollback();
+			}
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			em.close();
 
 		}

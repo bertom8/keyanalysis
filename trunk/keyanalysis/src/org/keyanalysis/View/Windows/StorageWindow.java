@@ -9,16 +9,16 @@ import com.vaadin.ui.Window;
 public class StorageWindow extends Window {
 	private static final long serialVersionUID = 7682042281277310996L;
 
-	public StorageWindow(User u) {
+	public StorageWindow(final User u) {
 		super();
-		setCaption("Show items");
-		//setStyleName(Constants.STYLE_MAIN_TITLE);
-		setResizable(false);
-		center();
-		setSizeFull();
+		this.setCaption("Show items");
+		// setStyleName(Constants.STYLE_MAIN_TITLE);
+		this.setResizable(false);
+		this.center();
+		this.setSizeFull();
 		final TableCreatorUtility tcu = new TableCreatorUtility("Items", Item.class, u, this);
 		final GridLayout layout = tcu.createTableLayout();
 		layout.setId("scrollstyleItems");
-		setContent(layout);
+		this.setContent(layout);
 	}
 }

@@ -83,10 +83,8 @@ public class Constants {
 	public static final String TwofishMinEntropy = "Az Twofish minimum entrópiája: ";
 	public static final String ShaMinEntropy = "Az SHA minimum entrópiája: ";
 	public static final String SkeinMinEntropy = "A Skein minimum entrópiája: ";
-	
+
 	// Ütközések
-	
-	
 
 	// HibaÃ¼zenetek
 	public static final String histogramError = "There was a problem with creating histogram";
@@ -98,7 +96,7 @@ public class Constants {
 	// Histogram tÃ­pusok
 	public static final String RateHistogramm = "rate";
 	public static final String HammingHistogramm = "hamming";
-	
+
 	public static final String aes = "_AES256.txt";
 	public static final String sha = "_SHA.txt";
 	public static final String skein = "_SKEIN.txt";
@@ -106,14 +104,14 @@ public class Constants {
 	public static final String serpent = "_SERPENT.txt";
 	public static final String blowfish = "_BLOWFISH.txt";
 	public static final String twofish = "_TWOFISH.txt";
-	
+
 	public static final String aes64 = "_AESCutted256.txt";
-	
+
 	public static final String sha64 = "_SHACutted256.txt";
 	public static final String sha32 = "_SHACutted128.txt";
 	public static final String sha16 = "_SHACutted64.txt";
 	public static final String sha8 = "_SHACutted32.txt";
-	
+
 	public static final String skein64 = "_SKEINCutted256.txt";
 	public static final String skein32 = "_SKEINCutted128.txt";
 	public static final String skein16 = "_SKEINCutted64.txt";

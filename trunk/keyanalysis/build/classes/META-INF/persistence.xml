@@ -24,14 +24,6 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
             <property name="hibernate.show_sql" value="true" /> <!-- Debugoláshoz -->
             <property name="hibernate.hbm2ddl.auto" value="none" /> 
-         	<!-- 
-           	<property name="hibernate.ogm.datastore.provider" value="mongodb" />
-    		<property name="hibernate.ogm.mongodb.database" value="keyanalysis" />
-    		<property name="hibernate.ogm.mongodb.host" value="127.0.0.1 "/>
-      		<property name="hibernate.ogm.mongodb.port" value="27017"/>
-            <property name="hibernate.ogm.datastore.grid_dialect"
-					value="org.hibernate.ogm.datastore.mongodb.MongoDBDialect" />
-            <property name="hibernate.show_sql" value="false" /> --> <!-- Debugoláshoz -->
         </properties>
 
     </persistence-unit>

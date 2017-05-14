@@ -18,22 +18,22 @@ public class LengthComplex extends AbstractJavaScriptComponent {
 	private List<Integer> list;
 
 	public void sendComplexTypes() {
-		getRpcProxy(LengthComplexTypesRpc.class).sendComplexTypes(list);
+		this.getRpcProxy(LengthComplexTypesRpc.class).sendComplexTypes(this.list);
 	}
 
-	public LengthComplex(List<Integer> list) {
-		this.list = new ArrayList<Integer>(list);
-		sendComplexTypes();
+	public LengthComplex(final List<Integer> list) {
+		this.list = new ArrayList<>(list);
+		this.sendComplexTypes();
 	}
 
 	public LengthComplex() {
 	}
 
 	public List<Integer> getList() {
-		return list;
+		return this.list;
 	}
 
-	public void setList(List<Integer> list) {
+	public void setList(final List<Integer> list) {
 		this.list = list;
 	}
 }

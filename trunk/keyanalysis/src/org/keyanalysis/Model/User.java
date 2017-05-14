@@ -7,48 +7,55 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class User {
 	@Id
-	@Column(name="username", nullable = false)
+	@Column(name = "username", nullable = false)
 	private String name = "";
-	
-	@Column(name="password", nullable = false)
+
+	@Column(name = "password", nullable = false)
 	private String password = org.keyanalysis.Services.DB.LoginService.hashing("default");
-	
-	@Column(name="deleted", nullable = false, columnDefinition = "BIT default 0")
+
+	@Column(name = "deleted", nullable = false, columnDefinition = "BIT default 0")
 	private boolean deleted = false;
-	
+
 	@ManyToOne
 	private Storage storage = null;
-	
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
-	public void setName(String name) {
+
+	public void setName(final String name) {
 		this.name = name;
 	}
+
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
-	public void setPassword(String password) {
+
+	public void setPassword(final String password) {
 		this.password = password;
 	}
+
 	public boolean isDeleted() {
-		return deleted;
+		return this.deleted;
 	}
-	public void setDeleted(boolean deleted) {
+
+	public void setDeleted(final boolean deleted) {
 		this.deleted = deleted;
 	}
+
 	public Storage getStorage() {
-		return storage;
+		return this.storage;
 	}
-	public void setStorage(Storage storage) {
+
+	public void setStorage(final Storage storage) {
 		this.storage = storage;
 	}
-	
+
 	@Override
 	public String toString() {
-		return name;
+		return this.name;
 	}
 }

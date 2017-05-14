@@ -16,41 +16,42 @@ public class ValoMenuLayout extends CssLayout {
 	private CssLayout content = new CssLayout();
 
 	public ValoMenuLayout() {
-		setSizeFull();
-		menu.setPrimaryStyleName("valo-menu");
-		menu.setWidth("100%");
-		menu.setHeight("9%");
-		menu.setResponsive(true);
-		menu.setId("menu");
-		content.setPrimaryStyleName("valo-content");
-		content.addStyleName("v-scrollable");
-		content.setSizeFull();
-		addComponents(menu, content);
+		this.setSizeFull();
+		this.menu.setPrimaryStyleName("valo-menu");
+		this.menu.setWidth("100%");
+		this.menu.setHeight("9%");
+		this.menu.setResponsive(true);
+		this.menu.setId("menu");
+		this.content.setPrimaryStyleName("valo-content");
+		this.content.addStyleName("v-scrollable");
+		this.content.setSizeFull();
+		this.addComponents(this.menu, this.content);
 	}
 
 	public ComponentContainer getContentContainer() {
-		return content;
+		return this.content;
 	}
 
-	public void addMenu(Component menu) {
-		if (!menu.getStyleName().equals("valo-menu-title"))
+	public void addMenu(final Component menu) {
+		if (!menu.getStyleName().equals("valo-menu-title")) {
 			menu.addStyleName("valo-menu-part");
+		}
 		this.menu.addComponent(menu);
 	}
 
 	public HorizontalLayout getMenu() {
-		return menu;
+		return this.menu;
 	}
 
-	public void setMenu(HorizontalLayout menu) {
+	public void setMenu(final HorizontalLayout menu) {
 		this.menu = menu;
 	}
 
 	public CssLayout getContent() {
-		return content;
+		return this.content;
 	}
 
-	public void setContent(CssLayout content) {
+	public void setContent(final CssLayout content) {
 		this.content = content;
 	}
 }

@@ -18,22 +18,22 @@ public class HammingComplex extends AbstractJavaScriptComponent {
 	private List<Double> list;
 
 	public void sendComplexTypes() {
-		getRpcProxy(ComplexTypesRpc.class).sendComplexTypes(list);
+		this.getRpcProxy(ComplexTypesRpc.class).sendComplexTypes(this.list);
 	}
 
-	public HammingComplex(List<Double> list) {
-		this.list = new ArrayList<Double>(list);
-		sendComplexTypes();
+	public HammingComplex(final List<Double> list) {
+		this.list = new ArrayList<>(list);
+		this.sendComplexTypes();
 	}
 
 	public HammingComplex() {
 	}
 
 	public List<?> getList() {
-		return list;
+		return this.list;
 	}
 
-	public void setList(List<Double> list) {
+	public void setList(final List<Double> list) {
 		this.list = list;
 	}
 }

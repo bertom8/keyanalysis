@@ -7,43 +7,44 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="storage")
+@Table(name = "storage")
 public class Storage {
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
-	/*@OneToMany(mappedBy="id")
-	@OrderBy("time")
-	@Column(name="list")
-	private List<Item> list;*/
-	
-	@Column(name="deleted", nullable = false, columnDefinition = "BIT default 0")
+
+	/*
+	 * @OneToMany(mappedBy="id")
+	 * 
+	 * @OrderBy("time")
+	 * 
+	 * @Column(name="list") private List<Item> list;
+	 */
+
+	@Column(name = "deleted", nullable = false, columnDefinition = "BIT default 0")
 	private boolean deleted = false;
 
 	public boolean isDeleted() {
-		return deleted;
+		return this.deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(final boolean deleted) {
 		this.deleted = deleted;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
-	/*public List<Item> getList() {
-		return list;
-	}
-
-	public void setList(List<Item> list) {
-		this.list = list;
-	}*/
+	/*
+	 * public List<Item> getList() { return list; }
+	 * 
+	 * public void setList(List<Item> list) { this.list = list; }
+	 */
 
 }

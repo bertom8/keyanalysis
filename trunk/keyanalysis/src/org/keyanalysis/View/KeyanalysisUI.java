@@ -30,6 +30,8 @@ import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.MouseEventDetails.MouseButton;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
@@ -39,8 +41,6 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -56,11 +56,11 @@ public class KeyanalysisUI extends UI {
 	private Storage storage;
 	private static final long serialVersionUID = 3203206028748256045L;
 	private final ValoMenuLayout root = new ValoMenuLayout();
-	private ProgressBar progress = new ProgressBar();
+	private final ProgressBar progress = new ProgressBar();
 	private ProcessService process = null;
 	private File file = null;
-	private NativeSelect lista = null;
-	//private Button chooseButton = null;
+	private final NativeSelect lista = null;
+	// private Button chooseButton = null;
 	private Button loginButton = null;
 	private MenuBar profil = null;
 
@@ -71,20 +71,17 @@ public class KeyanalysisUI extends UI {
 	}
 
 	@Override
-	protected void init(VaadinRequest request) {
-		loggedUser = (User) getSession().getAttribute("USER");
+	protected void init(final VaadinRequest request) {
+		this.loggedUser = (User) this.getSession().getAttribute("USER");
 		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(1800);
 		Page.getCurrent().setTitle("Keyanalysis");
-		createMainUI();
-		Timer ti = new Timer();
+		this.createMainUI();
+		final Timer ti = new Timer();
 		ti.scheduleAtFixedRate(new SchedulerService(), new Date(), 1111111);
-		/*Thread t = new Thread(new SchedulerService());
-		t.start();
-		try { 
-			t.join(); 
-		} catch (InterruptedException e) {
-			 e.printStackTrace(); 
-		}*/
+		/*
+		 * Thread t = new Thread(new SchedulerService()); t.start(); try {
+		 * t.join(); } catch (InterruptedException e) { e.printStackTrace(); }
+		 */
 	}
 
 	/**
@@ -92,9 +89,9 @@ public class KeyanalysisUI extends UI {
 	 */
 	private void createMainUI() {
 		Responsive.makeResponsive(this);
-		createMenu();
-		addStyleName(ValoTheme.UI_WITH_MENU);
-		setContent(root);
+		this.createMenu();
+		this.addStyleName(ValoTheme.UI_WITH_MENU);
+		this.setContent(this.root);
 	}
 
 	/**
@@ -102,15 +99,15 @@ public class KeyanalysisUI extends UI {
 	 */
 	private void createMenu() {
 		// Title
-		Label title = new Label(Constants.title, ContentMode.HTML);
+		final Label title = new Label(Constants.title, ContentMode.HTML);
 		title.addContextClickListener(new ContextClickListener() {
 			private static final long serialVersionUID = -1268517517501948904L;
 
 			@Override
-			public void contextClick(ContextClickEvent event) {
+			public void contextClick(final ContextClickEvent event) {
 				if (event.getButton().equals(MouseButton.LEFT)) {
 					if (!event.isShiftKey()) {
-						getPage().reload();
+						KeyanalysisUI.this.getPage().reload();
 					}
 				}
 			}
@@ -119,114 +116,112 @@ public class KeyanalysisUI extends UI {
 		title.addStyleName("valo-menu-title");
 		title.setSizeFull();
 		title.setResponsive(true);
-		root.addMenu(title);
-		Button up = new Button(Constants.uploadButton, new ClickListener() {
+		this.root.addMenu(title);
+		final Button up = new Button(Constants.uploadButton, new ClickListener() {
 			private static final long serialVersionUID = 413498238313269838L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(final ClickEvent event) {
 				UI.getCurrent().addWindow(new UploadWindow(Constants.upload));
 			}
 		});
 		up.setId("uploadButtonMenu");
-		root.addMenu(up);
-		
-		Button twitter = new Button("Get Tweets", new ClickListener() {
+		this.root.addMenu(up);
+
+		final Button twitter = new Button("Get Tweets", new ClickListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {
-				ProcessService ps = new ProcessService("twitter.txt", "");
-				setProcess(ps);
-				process.makeCharts();
+			public void buttonClick(final ClickEvent event) {
+				final ProcessService ps = new ProcessService("twitter.txt", "");
+				KeyanalysisUI.this.setProcess(ps);
+				KeyanalysisUI.this.process.makeCharts();
 			}
 		});
 		twitter.setId("getTweetsButton");
-		root.addMenu(twitter);
-		
-		Button downloadButton = new Button(Constants.download);
+		this.root.addMenu(twitter);
+
+		final Button downloadButton = new Button(Constants.download);
 		downloadButton.setId("downloadButton");
 		downloadButton.setEnabled(false);
 		downloadButton.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = 413498238313269838L;
 
-			public void buttonClick(ClickEvent event) {
-				getProcess().getFileResource(downloadButton);
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				KeyanalysisUI.this.getProcess().getFileResource(downloadButton);
 			}
 		});
-		root.addMenu(downloadButton);
-		Button compareButton = new Button(Constants.compare, new ClickListener() {
+		this.root.addMenu(downloadButton);
+		final Button compareButton = new Button(Constants.compare, new ClickListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(final ClickEvent event) {
 				UI.getCurrent().addWindow(new CompareWindow());
 			}
 		});
 		compareButton.setId("compareButton");
-		root.addMenu(compareButton);
-		
-		
-		loginButton = new Button("Login", new ClickListener() {
+		compareButton.setEnabled(false);
+		this.root.addMenu(compareButton);
+
+		this.loginButton = new Button("Login", new ClickListener() {
 			private static final long serialVersionUID = -8781451780815490925L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().addWindow(new LoginWindow());		
+			public void buttonClick(final ClickEvent event) {
+				UI.getCurrent().addWindow(new LoginWindow());
 			}
 		});
-		loginButton.setId("loginButton");
-		if ( loggedUser == null) {
-			root.addMenu(loginButton);
+		this.loginButton.setId("loginButton");
+		if (this.loggedUser == null) {
+			this.root.addMenu(this.loginButton);
 		} else {
-			createProfilMenu();
-			root.getMenu().addComponent(profil);
+			this.createProfilMenu();
+			this.root.getMenu().addComponent(this.profil);
 		}
-		//root.addMenu(loginButton);
-		/*Button twit = new Button("Twitter", new ClickListener() {
-			private static final long serialVersionUID = -8781451780815490925L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				//org.keyanalysis.Services.TweetSearcher.saveTweetsFromJson(new File(VaadinServlet.getCurrent().getServletContext().getRealPath("") + "world6_9.txt"));
-				//long time = new Date(1463318280004L).getTime();
-				//long time = new Date(1463307961482L).getTime();
-				long time = new Date().getTime() - 10800000*21;
-				for (long i = 0; i < 21; i++) {
-					//org.keyanalysis.Services.TweetSearcher.searchEngTweets(time);
-					org.keyanalysis.Services.TweetSearcher.searchHunTweets(time);
-					time += 10800000;
-				}
-				//System.out.println(new Date(1463318280004L));
-			}
-		});
-		root.addMenu(twit);*/
-		root.getMenu().setExpandRatio(title, 2);
-		root.getMenu().setExpandRatio(up, 1);
-		root.getMenu().setExpandRatio(twitter, 1);
-		root.getMenu().setExpandRatio(downloadButton, 1);
-		root.getMenu().setExpandRatio(compareButton, 1);
-		//root.getMenu().setExpandRatio(twit, 1);
+		// root.addMenu(loginButton);
+		/*
+		 * Button twit = new Button("Twitter", new ClickListener() { private
+		 * static final long serialVersionUID = -8781451780815490925L;
+		 * 
+		 * @Override public void buttonClick(ClickEvent event) {
+		 * //org.keyanalysis.Services.TweetSearcher.saveTweetsFromJson(new
+		 * File(VaadinServlet.getCurrent().getServletContext().getRealPath("") +
+		 * "world6_9.txt")); //long time = new Date(1463318280004L).getTime();
+		 * //long time = new Date(1463307961482L).getTime(); long time = new
+		 * Date().getTime() - 10800000*21; for (long i = 0; i < 21; i++) {
+		 * //org.keyanalysis.Services.TweetSearcher.searchEngTweets(time);
+		 * org.keyanalysis.Services.TweetSearcher.searchHunTweets(time); time +=
+		 * 10800000; } //System.out.println(new Date(1463318280004L)); } });
+		 * root.addMenu(twit);
+		 */
+		this.root.getMenu().setExpandRatio(title, 2);
+		this.root.getMenu().setExpandRatio(up, 1);
+		this.root.getMenu().setExpandRatio(twitter, 1);
+		this.root.getMenu().setExpandRatio(downloadButton, 1);
+		this.root.getMenu().setExpandRatio(compareButton, 1);
+		// root.getMenu().setExpandRatio(twit, 1);
 	}
 
 	/**
 	 * 
 	 * @param notice
 	 */
-	public void drawProgress(String notice) {
-		root.getContent().removeAllComponents();
-		CssLayout progressLayout = new CssLayout();
+	public void drawProgress(final String notice) {
+		this.root.getContent().removeAllComponents();
+		final CssLayout progressLayout = new CssLayout();
 		progressLayout.setId("progressBarLayout");
 		progressLayout.setWidth("100%");
-		progress.setValue((float) 0.0);
-		progress.markAsDirty();
-		progress.setImmediate(true);
-		progressLayout.addComponent(progress);
-		root.getContent().addComponent(progressLayout);
-		progress.setId("progressBar");
-		progress.setWidth(String.valueOf(root.getContent().getWidth() * 3));
-		drawnotice(progressLayout, notice);
-		drawCancelButton(progressLayout);
+		this.progress.setValue((float) 0.0);
+		this.progress.markAsDirty();
+		this.progress.setImmediate(true);
+		progressLayout.addComponent(this.progress);
+		this.root.getContent().addComponent(progressLayout);
+		this.progress.setId("progressBar");
+		this.progress.setWidth(String.valueOf(this.root.getContent().getWidth() * 3));
+		this.drawnotice(progressLayout, notice);
+		this.drawCancelButton(progressLayout);
 	}
 
 	/**
@@ -234,14 +229,14 @@ public class KeyanalysisUI extends UI {
 	 * @param layout
 	 * @param notice
 	 */
-	private void drawnotice(Layout layout, String notice) {
-		Label noticeLabel = new Label(notice);
+	private void drawnotice(final Layout layout, final String notice) {
+		final Label noticeLabel = new Label(notice);
 		noticeLabel.setId("notice");
 		layout.addComponent(noticeLabel);
 	}
 
-	private void drawCancelButton(Layout layout) {
-		Button cancel = new Button("Mégse");
+	private void drawCancelButton(final Layout layout) {
+		final Button cancel = new Button("Mégse");
 		cancel.setId("cancelButton");
 		/*
 		 * cancel.addClickListener(new ClickListener() { private static final
@@ -256,43 +251,45 @@ public class KeyanalysisUI extends UI {
 		 */
 		layout.addComponent(cancel);
 	}
-	
+
 	public void changeLoginButton() {
-		root.getMenu().removeComponent(loginButton);
-		root.setImmediate(true);
-		root.getMenu().addComponent(profil);
+		this.root.getMenu().removeComponent(this.loginButton);
+		this.root.setImmediate(true);
+		this.root.getMenu().addComponent(this.profil);
 	}
-	
-	public void logOut(){		
+
+	public void logOut() {
 		VaadinSession.getCurrent().close();
 		UI.getCurrent().getPage().setUriFragment("");
-		loggedUser=null;
+		this.loggedUser = null;
 		UI.getCurrent().getPage().reload();
 	}
-	
+
 	public void createProfilMenu() {
-		profil = new MenuBar();
-		//profil.addStyleName("mybarmenu");
-		//layout.addComponent(barmenu);
+		this.profil = new MenuBar();
+		// profil.addStyleName("mybarmenu");
+		// layout.addComponent(barmenu);
 
 		// A feedback component
-		//final Label selection = new Label("-");
-		//layout.addComponent(selection);
-		MenuItem mainProfil = profil.addItem(((User)VaadinSession.getCurrent().getAttribute("USER")).getName(), null);
+		// final Label selection = new Label("-");
+		// layout.addComponent(selection);
+		final MenuItem mainProfil = this.profil
+				.addItem(((User) VaadinSession.getCurrent().getAttribute("USER")).getName(), null);
 		mainProfil.addItem("Profil", new Command() {
 			private static final long serialVersionUID = 6133202127278652105L;
 
-			public void menuSelected(MenuItem selectedItem) {
+			@Override
+			public void menuSelected(final MenuItem selectedItem) {
 				UI.getCurrent().addWindow(new ProfilWindow());
-				
+
 			}
 		});
 		mainProfil.addItem("Search", new Command() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void menuSelected(MenuItem selectedItem) {
-				UI.getCurrent().addWindow(new SearchUserWindow());		
+			public void menuSelected(final MenuItem selectedItem) {
+				UI.getCurrent().addWindow(new SearchUserWindow());
 			}
 		});
 		mainProfil.addSeparator();
@@ -300,22 +297,22 @@ public class KeyanalysisUI extends UI {
 			private static final long serialVersionUID = -6068622063923346676L;
 
 			@Override
-			public void menuSelected(MenuItem selectedItem) {
-				changeLoginButton();
-				logOut();				
+			public void menuSelected(final MenuItem selectedItem) {
+				KeyanalysisUI.this.changeLoginButton();
+				KeyanalysisUI.this.logOut();
 			}
 		});
-		
-		changeLoginButton();
+
+		this.changeLoginButton();
 	}
 
 	/**
 	 * 
 	 */
 	public void removeProgress() {
-		progress.setId("progressBarOut");
-		root.getContent().removeAllComponents();
-		root.getContent().markAsDirty();
+		this.progress.setId("progressBarOut");
+		this.root.getContent().removeAllComponents();
+		this.root.getContent().markAsDirty();
 	}
 
 	/**
@@ -323,7 +320,7 @@ public class KeyanalysisUI extends UI {
 	 * @return
 	 */
 	public ProgressBar getProgress() {
-		return progress;
+		return this.progress;
 	}
 
 	/**
@@ -331,7 +328,7 @@ public class KeyanalysisUI extends UI {
 	 * @return
 	 */
 	public ValoMenuLayout getRoot() {
-		return root;
+		return this.root;
 	}
 
 	/**
@@ -339,47 +336,50 @@ public class KeyanalysisUI extends UI {
 	 * @return
 	 */
 	public ProcessService getProcess() {
-		return process;
+		return this.process;
 	}
 
 	/**
 	 * 
 	 * @param process
 	 */
-	public void setProcess(ProcessService process) {
+	public void setProcess(final ProcessService process) {
 		this.process = process;
 	}
 
 	public File getFile() {
-		return file;
+		return this.file;
 	}
 
-	public void setFile(File file) {
+	public void setFile(final File file) {
 		this.file = file;
 	}
-	
+
 	public NativeSelect getLista() {
-		return lista;
-	}
-	
-	public User getLoggedUser() {
-		return loggedUser;
+		return this.lista;
 	}
 
-	public void setLoggedUser(User loggedUser) {
+	public User getLoggedUser() {
+		return this.loggedUser;
+	}
+
+	public void setLoggedUser(final User loggedUser) {
 		this.loggedUser = loggedUser;
 	}
 
 	public Storage getStorage() {
-		return storage;
+		return this.storage;
 	}
 
-	public void setStorage(Storage storage) {
+	public void setStorage(final Storage storage) {
 		this.storage = storage;
 	}
-	
-	public void downloadButtonEnable(boolean bool) {
-		((Button)root.getMenu().getComponent(3)).setEnabled(bool);
+
+	public void downloadButtonEnable(final boolean bool) {
+		((Button) this.root.getMenu().getComponent(3)).setEnabled(bool);
+	}
+
+	public void compareButtonEnable(final boolean bool) {
+		((Button) this.root.getMenu().getComponent(4)).setEnabled(bool);
 	}
 }
-

@@ -9,14 +9,16 @@ import com.google.gson.JsonParser;
  *
  */
 public class ReadTweets {
-	private JsonParser parser = new JsonParser();
+	private final JsonParser parser = new JsonParser();
 
 	public JsonObject readFromString(String str) {
-		if (str.length() < 3)
+		if (str.length() < 3) {
 			return null;
-		if (!str.endsWith("}"))
+		}
+		if (!str.endsWith("}")) {
 			str = str.substring(0, str.lastIndexOf('}') + 1);
-			return parser.parse(str).getAsJsonObject();
+		}
+		return this.parser.parse(str).getAsJsonObject();
 	}
 
 }

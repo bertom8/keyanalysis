@@ -8,161 +8,193 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tweet")
+@Table(name = "tweet")
 public class Tweet {
-	@Column(name="date")
+	@Column(name = "date")
 	private Date date = null;
-	
-	@Column(name="retweetId")
+
+	@Column(name = "retweetId")
 	private long retweetId = -1;
-	
-	@Column(name="favoriteCount")
+
+	@Column(name = "favoriteCount")
 	private int favoriteCount = 0;
-	
-	@Column(name="id")
+
+	@Column(name = "id")
 	@Id
 	private long id = -1;
-	
-	@Column(name="inReplyToScreenName")
+
+	@Column(name = "inReplyToScreenName")
 	private String inReplyToScreenName = null;
-	
-	@Column(name="inReplyToStatusId")
+
+	@Column(name = "inReplyToStatusId")
 	private long inReplyToStatusId = -1;
-	
-	@Column(name="inReplyToUserId")
+
+	@Column(name = "inReplyToUserId")
 	private long inReplyToUserId = -1;
-	
-	@Column(name="lang")
+
+	@Column(name = "lang")
 	private String lang = null;
-	
-	@Column(name="quotedStatusId")
+
+	@Column(name = "quotedStatusId")
 	private long quotedStatusId = -1;
-	
-	@Column(name="retweetCount")
+
+	@Column(name = "retweetCount")
 	private int retweetCount = 0;
-	
-	@Column(name="source")
+
+	@Column(name = "source")
 	private String source = null;
-	
-	@Column(name="user")
+
+	@Column(name = "user")
 	private String user = null;
-	
-	@Column(name="text")
+
+	@Column(name = "text")
 	private String text = null;
-	
-	@Column(name="geoLatitude")
+
+	@Column(name = "geoLatitude")
 	private double geoLatitude = 0;
-	
-	@Column(name="geoLongitude")
+
+	@Column(name = "geoLongitude")
 	private double geoLongitude = 0;
-	
-	@Column(name="country")
+
+	@Column(name = "country")
 	private String country = "";
-	
-	@Column(name="countryCode")
+
+	@Column(name = "countryCode")
 	private String countryCode = "";
-	
-	
+
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
-	public void setDate(Date date) {
+
+	public void setDate(final Date date) {
 		this.date = date;
 	}
+
 	public long getRetweetId() {
-		return retweetId;
+		return this.retweetId;
 	}
-	public void setRetweetId(long retweetId) {
+
+	public void setRetweetId(final long retweetId) {
 		this.retweetId = retweetId;
 	}
+
 	public int getFavoriteCount() {
-		return favoriteCount;
+		return this.favoriteCount;
 	}
-	public void setFavoriteCount(int favoriteCount) {
+
+	public void setFavoriteCount(final int favoriteCount) {
 		this.favoriteCount = favoriteCount;
 	}
+
 	public long getId() {
-		return id;
+		return this.id;
 	}
-	public void setId(long id) {
+
+	public void setId(final long id) {
 		this.id = id;
 	}
+
 	public String getInReplyToScreenName() {
-		return inReplyToScreenName;
+		return this.inReplyToScreenName;
 	}
-	public void setInReplyToScreenName(String inReplyToScreenName) {
+
+	public void setInReplyToScreenName(final String inReplyToScreenName) {
 		this.inReplyToScreenName = inReplyToScreenName;
 	}
+
 	public long getInReplyToStatusId() {
-		return inReplyToStatusId;
+		return this.inReplyToStatusId;
 	}
-	public void setInReplyToStatusId(long inReplyToStatusId) {
+
+	public void setInReplyToStatusId(final long inReplyToStatusId) {
 		this.inReplyToStatusId = inReplyToStatusId;
 	}
+
 	public long getInReplyToUserId() {
-		return inReplyToUserId;
+		return this.inReplyToUserId;
 	}
-	public void setInReplyToUserId(long inReplyToUserId) {
+
+	public void setInReplyToUserId(final long inReplyToUserId) {
 		this.inReplyToUserId = inReplyToUserId;
 	}
+
 	public String getLang() {
-		return lang;
+		return this.lang;
 	}
-	public void setLang(String lang) {
+
+	public void setLang(final String lang) {
 		this.lang = lang;
 	}
+
 	public long getQuotedStatusId() {
-		return quotedStatusId;
+		return this.quotedStatusId;
 	}
-	public void setQuotedStatusId(long quotedStatusId) {
+
+	public void setQuotedStatusId(final long quotedStatusId) {
 		this.quotedStatusId = quotedStatusId;
 	}
+
 	public int getRetweetCount() {
-		return retweetCount;
+		return this.retweetCount;
 	}
-	public void setRetweetCount(int retweetCount) {
+
+	public void setRetweetCount(final int retweetCount) {
 		this.retweetCount = retweetCount;
 	}
+
 	public String getSource() {
-		return source;
+		return this.source;
 	}
-	public void setSource(String source) {
+
+	public void setSource(final String source) {
 		this.source = source;
 	}
+
 	public String getUser() {
-		return user;
+		return this.user;
 	}
-	public void setUser(String user) {
+
+	public void setUser(final String user) {
 		this.user = user;
 	}
+
 	public String getText() {
-		return text;
+		return this.text;
 	}
-	public void setText(String text) {
+
+	public void setText(final String text) {
 		this.text = text;
 	}
+
 	public double getGeoLatitude() {
-		return geoLatitude;
+		return this.geoLatitude;
 	}
-	public void setGeoLatitude(double geoLatitude) {
+
+	public void setGeoLatitude(final double geoLatitude) {
 		this.geoLatitude = geoLatitude;
 	}
+
 	public double getGeoLongitude() {
-		return geoLongitude;
+		return this.geoLongitude;
 	}
-	public void setGeoLongitude(double geoLongitude) {
+
+	public void setGeoLongitude(final double geoLongitude) {
 		this.geoLongitude = geoLongitude;
 	}
+
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
-	public void setCountry(String country) {
+
+	public void setCountry(final String country) {
 		this.country = country;
 	}
+
 	public String getCountryCode() {
-		return countryCode;
+		return this.countryCode;
 	}
-	public void setCountryCode(String countryCode) {
+
+	public void setCountryCode(final String countryCode) {
 		this.countryCode = countryCode;
 	}
 }

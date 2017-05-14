@@ -12,31 +12,31 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JsonParser {
-	public static String getString(File file, String wantTag) {
+	public static String getString(final File file, final String wantTag) {
 		if (!file.exists() || !file.isFile() || "".equals(wantTag)) {
 			return null;
 		}
-		
-		JSONParser parser = new JSONParser();
+
+		final JSONParser parser = new JSONParser();
 		try {
 
-			Object obj = parser.parse(new FileReader(file));
+			final Object obj = parser.parse(new FileReader(file));
 
-			JSONObject jsonObject = (JSONObject) obj;
-			
-			JSONArray statuses = (JSONArray) jsonObject.get("statuses");
-			
-			Iterator<?> iterator = statuses.iterator();
+			final JSONObject jsonObject = (JSONObject) obj;
+
+			final JSONArray statuses = (JSONArray) jsonObject.get("statuses");
+
+			final Iterator<?> iterator = statuses.iterator();
 			while (iterator.hasNext()) {
-				JSONObject statobj = (JSONObject) iterator.next();
+				final JSONObject statobj = (JSONObject) iterator.next();
 				return (String) statobj.get(wantTag);
 			}
 
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			e.printStackTrace();
 		}
 		return null;

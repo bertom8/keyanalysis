@@ -10,63 +10,63 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="log")
+@Table(name = "log")
 public class Log {
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
+
 	@ManyToOne
 	private User user = null;
-	
-	@Column(name="type")
+
+	@Column(name = "type")
 	private String type = "";
-	
-	@Column(name="action")
+
+	@Column(name = "action")
 	private String action = "";
-	
-	@Column(name="time")
+
+	@Column(name = "time")
 	private Timestamp time = null;
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(final User user) {
 		this.user = user;
 	}
 
 	public String getAction() {
-		return action;
+		return this.action;
 	}
 
-	public void setAction(String action) {
+	public void setAction(final String action) {
 		this.action = action;
 	}
 
 	public Timestamp getTime() {
-		return time;
+		return this.time;
 	}
 
-	public void setTime(Timestamp time) {
+	public void setTime(final Timestamp time) {
 		this.time = time;
 	}
-	
+
 }

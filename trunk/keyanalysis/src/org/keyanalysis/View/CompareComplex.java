@@ -18,31 +18,31 @@ public class CompareComplex extends AbstractJavaScriptComponent {
 	private List<Double> list, list2;
 
 	public void sendComplexTypes() {
-		getRpcProxy(CompareRateComplex.class).sendComplexTypes(list, list2);
+		this.getRpcProxy(CompareRateComplex.class).sendComplexTypes(this.list, this.list2);
 	}
 
-	public CompareComplex(List<Double> list, List<Double> list2) {
-		this.list = new ArrayList<Double>(list);
-		this.list2 = new ArrayList<Double>(list2);
-		sendComplexTypes();
+	public CompareComplex(final List<Double> list, final List<Double> list2) {
+		this.list = new ArrayList<>(list);
+		this.list2 = new ArrayList<>(list2);
+		this.sendComplexTypes();
 	}
 
 	public CompareComplex() {
 	}
 
 	public List<?> getList() {
-		return list;
-	}
-	
-	public List<?> getList2() {
-		return list2;
+		return this.list;
 	}
 
-	public void setList(List<Double> list) {
+	public List<?> getList2() {
+		return this.list2;
+	}
+
+	public void setList(final List<Double> list) {
 		this.list = list;
 	}
-	
-	public void setList2(List<Double> list) {
+
+	public void setList2(final List<Double> list) {
 		this.list2 = list;
 	}
 }

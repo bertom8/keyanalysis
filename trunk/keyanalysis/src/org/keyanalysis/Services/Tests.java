@@ -16,7 +16,6 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
-import com.google.code.externalsorting.ExternalSort;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -25,11 +24,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.keyanalysis.View.KeyanalysisUI;
 
+import com.google.code.externalsorting.ExternalSort;
 import com.vaadin.ui.UI;
 
 /**
  * 
- * @author Bereczki Tamï¿½s
+ * @author Bereczki Tamás
  *
  */
 public class Tests {
@@ -39,12 +39,12 @@ public class Tests {
 	 * @param h
 	 * @param file
 	 */
-	public static void makeTextFromIntegers(ArrayList<Integer> h, String file) {
+	public static void makeTextFromIntegers(final ArrayList<Integer> h, final String file) {
 		try {
-			PrintWriter pw = new PrintWriter(file, "UTF-8");
-			Iterator<Integer> it = h.iterator();
+			final PrintWriter pw = new PrintWriter(file, "UTF-8");
+			final Iterator<Integer> it = h.iterator();
 			while (it.hasNext()) {
-				int tweet = it.next();
+				final int tweet = it.next();
 				pw.println(tweet);
 				// System.out.println(tweet);
 			}
@@ -59,7 +59,7 @@ public class Tests {
 	 * @param h
 	 * @return
 	 */
-	public static ArrayList<String> sortList(ArrayList<String> h) {
+	public static ArrayList<String> sortList(final ArrayList<String> h) {
 		Collections.sort(h);
 		System.out.println("End of sorting");
 		return h;
@@ -70,12 +70,12 @@ public class Tests {
 	 * @param h
 	 * @param file
 	 */
-	public static void makeTextFromStrings(ArrayList<String> h, String file) {
+	public static void makeTextFromStrings(final ArrayList<String> h, final String file) {
 		try {
-			PrintWriter pw = new PrintWriter(file, "UTF-8");
-			Iterator<String> it = h.iterator();
+			final PrintWriter pw = new PrintWriter(file, "UTF-8");
+			final Iterator<String> it = h.iterator();
 			while (it.hasNext()) {
-				String tweet = it.next();
+				final String tweet = it.next();
 				pw.println(tweet);
 				System.out.println(tweet);
 			}
@@ -90,8 +90,8 @@ public class Tests {
 	 * @param file
 	 * @return
 	 */
-	public static ArrayList<String> readFile(String file) {
-		ArrayList<String> list = new ArrayList<>();
+	public static ArrayList<String> readFile(final String file) {
+		final ArrayList<String> list = new ArrayList<>();
 		BufferedReader br = null;
 
 		try {
@@ -104,13 +104,14 @@ public class Tests {
 				list.add(line);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -121,8 +122,8 @@ public class Tests {
 	 * 
 	 * @return
 	 */
-	public static ArrayList<Integer> tweethossz(String source) {
-		ArrayList<Integer> hossz = new ArrayList<>();
+	public static ArrayList<Integer> tweethossz(final String source) {
+		final ArrayList<Integer> hossz = new ArrayList<>();
 		if (source.isEmpty()) {
 			return hossz;
 		}
@@ -138,21 +139,22 @@ public class Tests {
 				hossz.add(line.length());
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 		return hossz;
 	}
 
-	public static ArrayList<Integer> binaryTweetLength(String source) {
-		ArrayList<Integer> hossz = new ArrayList<>();
+	public static ArrayList<Integer> binaryTweetLength(final String source) {
+		final ArrayList<Integer> hossz = new ArrayList<>();
 		if (source.isEmpty()) {
 			return hossz;
 		}
@@ -167,13 +169,14 @@ public class Tests {
 				hossz.add(toBinary(line).length());
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -186,16 +189,17 @@ public class Tests {
 	 * @param sequence2
 	 * @return Hamming distance
 	 */
-	public static int getHammingDistance(String sequence1, String sequence2) {
-		char[] s1 = sequence1.toCharArray();
-		char[] s2 = sequence2.toCharArray();
+	public static int getHammingDistance(final String sequence1, final String sequence2) {
+		final char[] s1 = sequence1.toCharArray();
+		final char[] s2 = sequence2.toCharArray();
 
-		int shorter = Math.min(s1.length, s2.length);
+		final int shorter = Math.min(s1.length, s2.length);
 
 		int result = 0;
 		for (int i = 0; i < shorter; i++) {
-			if (s1[i] != s2[i])
+			if (s1[i] != s2[i]) {
 				result++;
+			}
 		}
 
 		return result;
@@ -207,10 +211,10 @@ public class Tests {
 	 * @param s
 	 * @return binary of string
 	 */
-	public static String toBinary(String s) {
-		byte[] bytes = s.getBytes();
-		StringBuilder binary = new StringBuilder();
-		for (byte b : bytes) {
+	public static String toBinary(final String s) {
+		final byte[] bytes = s.getBytes();
+		final StringBuilder binary = new StringBuilder();
+		for (final byte b : bytes) {
 			int val = b;
 			for (int i = 0; i < 8; i++) {
 				binary.append((val & 128) == 0 ? 0 : 1);
@@ -226,8 +230,8 @@ public class Tests {
 	 * @param aesek
 	 * @return
 	 */
-	public static ArrayList<Double> binDistance(ArrayList<String> source, String aesek) {
-		ArrayList<Double> tavok = new ArrayList<>();
+	public static ArrayList<Double> binDistance(final ArrayList<String> source, final String aesek) {
+		final ArrayList<Double> tavok = new ArrayList<>();
 		if (source.isEmpty() || aesek.isEmpty()) {
 			return tavok;
 		}
@@ -236,7 +240,7 @@ public class Tests {
 			String stored;
 			String hash;
 			double hossz;
-			Iterator<String> it = source.iterator();
+			final Iterator<String> it = source.iterator();
 			br2 = new BufferedReader(new FileReader(aesek));
 
 			while (it.hasNext() && (hash = br2.readLine()) != null) {
@@ -245,13 +249,14 @@ public class Tests {
 				tavok.add(getHammingDistance(toBinary(stored), toBinary(hash)) / hossz);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br2 != null)
+				if (br2 != null) {
 					br2.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -264,8 +269,8 @@ public class Tests {
 	 * @param aesek
 	 * @return
 	 */
-	public static ArrayList<Double> binDistance(String source, String aesek) {
-		ArrayList<Double> tavok = new ArrayList<>();
+	public static ArrayList<Double> binDistance(final String source, final String aesek) {
+		final ArrayList<Double> tavok = new ArrayList<>();
 		if (source.isEmpty() || aesek.isEmpty()) {
 			return tavok;
 		}
@@ -283,15 +288,17 @@ public class Tests {
 				tavok.add(getHammingDistance(toBinary(stored), toBinary(hash)) / hossz);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-				if (br2 != null)
+				}
+				if (br2 != null) {
 					br2.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -304,12 +311,13 @@ public class Tests {
 	 * @param s
 	 * @return number of ones
 	 */
-	public static int howManyOnes(String s) {
+	public static int howManyOnes(final String s) {
 		int count = 0;
 
 		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == '1')
+			if (s.charAt(i) == '1') {
 				count++;
+			}
 		}
 
 		return count;
@@ -321,21 +329,23 @@ public class Tests {
 	 * @param s
 	 * @return number of zeros
 	 */
-	public static int howManyZeros(String s) {
+	public static int howManyZeros(final String s) {
 		int count = 0;
 
 		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == '0')
+			if (s.charAt(i) == '0') {
 				count++;
+			}
 		}
 		return count;
 	}
 
-	public static ArrayList<Double> aranyok(ArrayList<String> source, String aesek, boolean withTogether) {
+	public static ArrayList<Double> aranyok(final ArrayList<String> source, final String aesek,
+			final boolean withTogether) {
 		if (withTogether) {
-			ArrayList<Double> aranyok = new ArrayList<Double>();
-			Iterator<Double> stored = aranyokszamitas(source, aesek, false).iterator();
-			Iterator<Double> aes = aranyokszamitas(source, aesek, true).iterator();
+			final ArrayList<Double> aranyok = new ArrayList<>();
+			final Iterator<Double> stored = aranyokszamitas(source, aesek, false).iterator();
+			final Iterator<Double> aes = aranyokszamitas(source, aesek, true).iterator();
 			while (stored.hasNext() && aes.hasNext()) {
 				aranyok.add(stored.next() / aes.next());
 			}
@@ -345,11 +355,11 @@ public class Tests {
 		}
 	}
 
-	public static ArrayList<Double> aranyok(String source, String aesek, boolean withTogether) {
+	public static ArrayList<Double> aranyok(final String source, final String aesek, final boolean withTogether) {
 		if (withTogether) {
-			ArrayList<Double> aranyok = new ArrayList<Double>();
-			Iterator<Double> stored = aranyokszamitas(source, aesek, false).iterator();
-			Iterator<Double> aes = aranyokszamitas(source, aesek, true).iterator();
+			final ArrayList<Double> aranyok = new ArrayList<>();
+			final Iterator<Double> stored = aranyokszamitas(source, aesek, false).iterator();
+			final Iterator<Double> aes = aranyokszamitas(source, aesek, true).iterator();
 			while (stored.hasNext() && aes.hasNext()) {
 				aranyok.add(stored.next() / aes.next());
 			}
@@ -363,10 +373,11 @@ public class Tests {
 	 * 
 	 * @return
 	 */
-	private static ArrayList<Double> aranyokszamitas(String source, String aesek, boolean hashed) {
-		ArrayList<Double> aranyok = new ArrayList<>();
-		if (source.isEmpty() || aesek.isEmpty())
+	private static ArrayList<Double> aranyokszamitas(final String source, final String aesek, final boolean hashed) {
+		final ArrayList<Double> aranyok = new ArrayList<>();
+		if (source.isEmpty() || aesek.isEmpty()) {
 			return aranyok;
+		}
 		BufferedReader br1 = null;
 		BufferedReader br2 = null;
 		try {
@@ -376,59 +387,64 @@ public class Tests {
 			br2 = new BufferedReader(new FileReader(aesek));
 			while ((stored = br1.readLine()) != null && (hash = br2.readLine()) != null) {
 				if (hashed) {
-					double zeros = howManyZeros(toBinary(hash));
-					double ones = toBinary(hash).length() - zeros;
+					final double zeros = howManyZeros(toBinary(hash));
+					final double ones = toBinary(hash).length() - zeros;
 					aranyok.add(ones / zeros);
 				} else {
-					double zeros = howManyZeros(toBinary(stored));
-					double ones = toBinary(stored).length() - zeros;
+					final double zeros = howManyZeros(toBinary(stored));
+					final double ones = toBinary(stored).length() - zeros;
 					aranyok.add(ones / zeros);
 				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-				if (br2 != null)
+				}
+				if (br2 != null) {
 					br2.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 		return aranyok;
 	}
 
-	private static ArrayList<Double> aranyokszamitas(ArrayList<String> source, String aesek, boolean hashed) {
-		ArrayList<Double> aranyok = new ArrayList<>();
-		if (source.isEmpty() || aesek.isEmpty())
+	private static ArrayList<Double> aranyokszamitas(final ArrayList<String> source, final String aesek,
+			final boolean hashed) {
+		final ArrayList<Double> aranyok = new ArrayList<>();
+		if (source.isEmpty() || aesek.isEmpty()) {
 			return aranyok;
+		}
 		BufferedReader br2 = null;
 		try {
 			String stored;
 			String hash;
-			Iterator<String> it = source.iterator();
+			final Iterator<String> it = source.iterator();
 			br2 = new BufferedReader(new FileReader(aesek));
 			while (it.hasNext() && (hash = br2.readLine()) != null) {
 				stored = it.next();
 				if (hashed) {
-					double zeros = howManyZeros(toBinary(hash));
-					double ones = toBinary(hash).length() - zeros;
+					final double zeros = howManyZeros(toBinary(hash));
+					final double ones = toBinary(hash).length() - zeros;
 					aranyok.add(ones / zeros);
 				} else {
-					double zeros = howManyZeros(toBinary(stored));
-					double ones = toBinary(stored).length() - zeros;
+					final double zeros = howManyZeros(toBinary(stored));
+					final double ones = toBinary(stored).length() - zeros;
 					aranyok.add(ones / zeros);
 				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br2 != null)
+				if (br2 != null) {
 					br2.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -440,8 +456,8 @@ public class Tests {
 	 * @param s
 	 * @return
 	 */
-	private static ArrayList<String> get16Characters(String s) {
-		ArrayList<String> a = new ArrayList<>();
+	private static ArrayList<String> get16Characters(final String s) {
+		final ArrayList<String> a = new ArrayList<>();
 		int i;
 		for (i = 0; i < s.length() - 16; i = i + 16) {
 			a.add(s.substring(i, i + 16));
@@ -458,8 +474,8 @@ public class Tests {
 		return a;
 	}
 
-	private static ArrayList<String> get32CharactersAndAES(String s) {
-		ArrayList<String> a = new ArrayList<>();
+	private static ArrayList<String> get32CharactersAndAES(final String s) {
+		final ArrayList<String> a = new ArrayList<>();
 		int i;
 		for (i = 0; i < s.length() - 32; i = i + 32) {
 			// System.out.println(s.substring(i, i+32));
@@ -477,8 +493,8 @@ public class Tests {
 		return a;
 	}
 
-	private static ArrayList<String> get32Characters(String s) {
-		ArrayList<String> a = new ArrayList<>();
+	private static ArrayList<String> get32Characters(final String s) {
+		final ArrayList<String> a = new ArrayList<>();
 		int i;
 		for (i = 0; i < s.length() - 32; i = i + 32) {
 			// System.out.println(s.substring(i, i+32));
@@ -496,8 +512,8 @@ public class Tests {
 		return a;
 	}
 
-	private static ArrayList<String> get64Characters(String s) {
-		ArrayList<String> a = new ArrayList<>();
+	private static ArrayList<String> get64Characters(final String s) {
+		final ArrayList<String> a = new ArrayList<>();
 		int i;
 		for (i = 0; i < s.length() - 64; i = i + 64) {
 			a.add(s.substring(i, i + 64));
@@ -513,8 +529,8 @@ public class Tests {
 		return a;
 	}
 
-	private static ArrayList<String> get96Characters(String s) {
-		ArrayList<String> a = new ArrayList<>();
+	private static ArrayList<String> get96Characters(final String s) {
+		final ArrayList<String> a = new ArrayList<>();
 		int i;
 		for (i = 0; i < s.length() - 160; i = i + 160) {
 			a.add(s.substring(i, i + 160));
@@ -531,10 +547,10 @@ public class Tests {
 	}
 
 	public static void kovetoBlokkparok() {
-		ArrayList<String> tweets = readFile("storedtweets.txt");
-		ArrayList<String> aes = new ArrayList<>();
-		Iterator<String> it = tweets.iterator();
-		//int i = 0;
+		final ArrayList<String> tweets = readFile("storedtweets.txt");
+		final ArrayList<String> aes = new ArrayList<>();
+		final Iterator<String> it = tweets.iterator();
+		// int i = 0;
 		int j = 0;
 		while (it.hasNext() && j < 20000000) {
 			if (j % 90000 == 0 || j == 4008239) {
@@ -542,8 +558,8 @@ public class Tests {
 				aes.clear();
 			}
 			// ArrayList<String> subAes = get32CharactersAndAES(it.next());
-			ArrayList<String> subAes = get96Characters(it.next());
-			Iterator<String> it2 = subAes.iterator();
+			final ArrayList<String> subAes = get96Characters(it.next());
+			final Iterator<String> it2 = subAes.iterator();
 
 			while (it2.hasNext()) {
 				aes.add(it2.next());
@@ -553,16 +569,16 @@ public class Tests {
 	}
 
 	public static void kovetoBlokkokElemzes() {
-		ArrayList<String> tweets = readFile("kovetobpaes.txt");
-		ArrayList<Integer> counts = new ArrayList<>();
+		final ArrayList<String> tweets = readFile("kovetobpaes.txt");
+		final ArrayList<Integer> counts = new ArrayList<>();
 		int num = 0;
-		Iterator<String> it = tweets.iterator();
+		final Iterator<String> it = tweets.iterator();
 		String prev = "";
 		while (it.hasNext()) {
-			String next = it.next();
-			if (prev == next)
+			final String next = it.next();
+			if (prev == next) {
 				num++;
-			else {
+			} else {
 				counts.add(num);
 				num = 0;
 			}
@@ -573,16 +589,16 @@ public class Tests {
 		System.out.println(counts.size());
 	}
 
-	private static void appendFile(ArrayList<String> h, String file) {
+	private static void appendFile(final ArrayList<String> h, final String file) {
 		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
 			out.println();
-			Iterator<String> it = h.iterator();
+			final Iterator<String> it = h.iterator();
 			while (it.hasNext()) {
-				String txt = it.next();
+				final String txt = it.next();
 				out.println(txt);
 				System.out.println(txt);
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// exception handling left as an exercise for the reader
 		}
 	}
@@ -592,7 +608,7 @@ public class Tests {
 	 * @return
 	 */
 	public static ArrayList<Double> binDistancePer128Bit() {
-		ArrayList<Double> tavok = new ArrayList<>();
+		final ArrayList<Double> tavok = new ArrayList<>();
 		BufferedReader br1 = null;
 		BufferedReader br2 = null;
 		int i = 0;
@@ -604,11 +620,11 @@ public class Tests {
 			br2 = new BufferedReader(new FileReader("storedtweets.txt"));
 
 			while ((stored = br1.readLine()) != null && (hossz = br2.readLine()) != null) {
-				ArrayList<String> charsOf16 = get16Characters(toBinary(stored));
-				Iterator<String> it = charsOf16.iterator();
+				final ArrayList<String> charsOf16 = get16Characters(toBinary(stored));
+				final Iterator<String> it = charsOf16.iterator();
 				while (it.hasNext() && i <= 4006000) {
 
-					String next = it.next();
+					final String next = it.next();
 					tavok.add((getHammingDistance(toBinary(next), toBinary("egik5utjgp8mi1xv"))
 							/ toBinary(hossz).length())
 							+ (getHammingDistance(toBinary(next), toBinary("egik5utjgp8mi1xv"))
@@ -619,41 +635,44 @@ public class Tests {
 				// System.out.println(i++);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-				if (br2 != null)
+				}
+				if (br2 != null) {
 					br2.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 		return tavok;
 	}
 
-	public static String cutHash(String s, int wantBit, boolean fromBegin) {
+	public static String cutHash(final String s, final int wantBit, final boolean fromBegin) {
 		String cutted = null;
-		if (s.isEmpty())
+		if (s.isEmpty()) {
 			return cutted;
+		}
 		if (wantBit % 4 == 0) {
 			if (fromBegin) {
 				cutted = s.substring(0, wantBit / 4);
 			} else {
-				int length = s.length();
+				final int length = s.length();
 				cutted = s.substring(length - wantBit / 4, length);
 			}
 		}
 		return cutted;
 	}
 
-	public static ArrayList<String> cutting(String file, int bit, boolean fromBegin) {
-		ArrayList<String> newHashes = new ArrayList<>();
+	public static ArrayList<String> cutting(final String file, final int bit, final boolean fromBegin) {
+		final ArrayList<String> newHashes = new ArrayList<>();
 		BufferedReader br1 = null;
 		int i = 0;
-		File f = new File(file);
+		final File f = new File(file);
 		if (!f.exists() || f.isDirectory()) {
 			return newHashes;
 		}
@@ -663,30 +682,31 @@ public class Tests {
 			br1 = new BufferedReader(new FileReader(file));
 
 			while ((stored = br1.readLine()) != null) {
-				String s = cutHash(stored, bit, fromBegin);
+				final String s = cutHash(stored, bit, fromBegin);
 				newHashes.add(s);
 				System.out.println(i++);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 		return newHashes;
 	}
 
-	public static int countColl(String file, ArrayList<Integer> szamok) {
+	public static int countColl(final String file, final ArrayList<Integer> szamok) {
 		int count = 0;
-		ArrayList<String> utkozok = new ArrayList<>();
+		final ArrayList<String> utkozok = new ArrayList<>();
 		BufferedReader br1 = null;
-		//int i = 0;
-		File f = new File(file);
+		// int i = 0;
+		final File f = new File(file);
 		if (!f.exists() || f.isDirectory()) {
 			return count;
 		}
@@ -706,38 +726,41 @@ public class Tests {
 					szamok.add(n);
 					utkozok.add(num);
 				}
-				if (n > 1)
+				if (n > 1) {
 					count += n - 1;
+				}
 				System.out.println(n);
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
-		Iterator<String> it = utkozok.iterator();
+		final Iterator<String> it = utkozok.iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
 		return count;
 	}
 
-	private static String cutShiftedHash(String s, int fromChar, int byChar) {
+	private static String cutShiftedHash(final String s, final int fromChar, final int byChar) {
 		String cutted = null;
-		if (s.isEmpty())
+		if (s.isEmpty()) {
 			return cutted;
+		}
 		cutted = s.substring(fromChar, fromChar + byChar);
 		return cutted;
 	}
 
-	public static void shift32bit(String algorithm, int chars) {
-		ArrayList<String> h = readFile(algorithm + ".txt");
+	public static void shift32bit(final String algorithm, final int chars) {
+		final ArrayList<String> h = readFile(algorithm + ".txt");
 		/*
 		 * int length = 0; switch (algorithm) { case "md5hash": length = 128;
 		 * break; case "sha1hash": length = 160; break; case "ripemd160hash":
@@ -749,9 +772,9 @@ public class Tests {
 		 * break; default: break; }
 		 */
 		int i = 0;
-		Iterator<String> it = h.iterator();
+		final Iterator<String> it = h.iterator();
 		while (it.hasNext()) {
-			String s = it.next();
+			final String s = it.next();
 			// for( int i = 8; i < s.length()+1; i = i+8) {
 			h.set(i, cutShiftedHash(s, chars, 6));
 			// }
@@ -761,21 +784,21 @@ public class Tests {
 		makeTextFromStrings(h, algorithm + "cut_" + chars * 4 + ".txt");
 	}
 
-	private static boolean appendFile(String str, String file) {
+	private static boolean appendFile(final String str, final String file) {
 		try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
 			out.println();
 			out.println(str);
 			System.out.println(str);
 			return true;
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// exception handling left as an exercise for the reader
 		}
 		return false;
 	}
 
-	public static SecretKey kulcsmeghatarozas(String str) {
+	public static SecretKey kulcsmeghatarozas(final String str) {
 		SecretKey key = null;
-		File f = new File(str);
+		final File f = new File(str);
 		if (f.exists() && !f.isDirectory()) {
 			key = kulcsellenorzes(str);
 			while (key == null) {
@@ -786,29 +809,30 @@ public class Tests {
 		return key;
 	}
 
-	private static SecretKey kulcsellenorzes(String destOfFile) {
-		ArrayList<String> kulcsok = new ArrayList<>();
-		ArrayList<String> aeses = new ArrayList<>();
+	private static SecretKey kulcsellenorzes(final String destOfFile) {
+		final ArrayList<String> kulcsok = new ArrayList<>();
+		final ArrayList<String> aeses = new ArrayList<>();
 		int i = 0;
 		String txt;
 		SecretKey key = null;
 		BufferedReader br = null;
-		Random r = new Random();
+		final Random r = new Random();
 
 		try {
 			// File.createTempFile("kulcsmeghat", ".txt");
 			br = new BufferedReader(new FileReader(destOfFile));
 
 			while ((txt = br.readLine()) != null && i < 100000) {
-				String binary_txt = toBinary(txt);
-				int onesOfBinaryTxt = howManyOnes(binary_txt);
+				final String binary_txt = toBinary(txt);
+				final int onesOfBinaryTxt = howManyOnes(binary_txt);
 				String aes;
 				do {
 					// double arany = binary_txt.length() / 256 *
 					// onesOfBinaryTxt;
 					// key = DigestService.generateRandomKey((int)arany,r);
 					key = DigestService.generateRandomKey(onesOfBinaryTxt, r);
-					//String keyString = Base64.getEncoder().encodeToString(key.getEncoded());
+					// String keyString =
+					// Base64.getEncoder().encodeToString(key.getEncoded());
 					// String hashedKey =
 					// Hex.encodeHexString(hash(keyString.getBytes()));
 					/*
@@ -863,13 +887,14 @@ public class Tests {
 				 */
 			}
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 
@@ -879,132 +904,141 @@ public class Tests {
 
 		return key;
 	}
-	
-	/*public static void entropyFromPython(ArrayList<String> list) {
-		PythonInterpreter interpreter = new PythonInterpreter();
-		interpreter.exec("import sys\nsys.path.append('pathToModiles if they're not there by default')\nimport yourModule");
-		// execute a function that takes a string and returns a string
-		PyObject someFunc = interpreter.get("funcName");
-		org.python.core.PyArray as = new 
-		PyObject result = someFunc.__call__(new PyString("Test!"));
-		String realResult = (String) result.__tojava__(String.class);
-	}*/
-	
-	public static double entropy1(ArrayList<String> list) {
+
+	/*
+	 * public static void entropyFromPython(ArrayList<String> list) {
+	 * PythonInterpreter interpreter = new PythonInterpreter(); interpreter.
+	 * exec("import sys\nsys.path.append('pathToModiles if they're not there by default')\nimport yourModule"
+	 * ); // execute a function that takes a string and returns a string
+	 * PyObject someFunc = interpreter.get("funcName"); org.python.core.PyArray
+	 * as = new PyObject result = someFunc.__call__(new PyString("Test!"));
+	 * String realResult = (String) result.__tojava__(String.class); }
+	 */
+
+	public static double entropy1(final ArrayList<String> list) {
 		double e = 0;
-		for (String s : list) {
+		for (final String s : list) {
 			e = Entropy.getShannonEntropy(s);
 		}
 		return e;
 	}
-	
-	public static double[] entropy1(String file) {
+
+	public static double[] entropy1(final String file) {
 		BufferedReader br = null;
-		double[] en = new double[2];
+		final double[] en = new double[2];
 		en[1] = Double.POSITIVE_INFINITY;
 		try {
 			String text;
 			br = new BufferedReader(new FileReader(file));
 			while ((text = br.readLine()) != null) {
 				en[0] += Entropy.getShannonEntropy(text);
-				//en[0] *= text.getBytes().length/2;
+				// en[0] *= text.getBytes().length/2;
 				if (en[0] < en[1]) {
 					en[1] = en[0];
 				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 		return en;
 	}
 
-	public static double[] entropy(ArrayList<String> list) {
-		double[] entropy = new double[2];
+	public static double[] entropy(final ArrayList<String> list) {
+		final double[] entropy = new double[2];
 		entropy[0] = 0;
 		entropy[1] = Double.POSITIVE_INFINITY;
 		long count = 0;
 		long ones = 0;
-		if (list.isEmpty())
+		if (list.isEmpty()) {
 			return null;
+		}
 
-		Iterator<String> it = list.iterator();
+		final Iterator<String> it = list.iterator();
 		while (it.hasNext()) {
-			char[] binaryOfText = toBinary(it.next()).toCharArray();
+			final char[] binaryOfText = toBinary(it.next()).toCharArray();
 			count += binaryOfText.length;
 			double numOfOnes = 0;
-			for (int i = 0; i < binaryOfText.length; i++) {
-				if (binaryOfText[i] == '1')
+			for (final char element : binaryOfText) {
+				if (element == '1') {
 					numOfOnes++;
+				}
 			}
 			ones += numOfOnes;
 			/*
-			double p1 = numOfOnes / (double)binaryOfText.length;
-			double p0 = ((double)binaryOfText.length - numOfOnes) / (double)binaryOfText.length;
-			double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
-			entropy[0] += -n;
-			if (n < entropy[1])
-				entropy[1] = n;*/
+			 * double p1 = numOfOnes / (double)binaryOfText.length; double p0 =
+			 * ((double)binaryOfText.length - numOfOnes) /
+			 * (double)binaryOfText.length; double n = -((p0 * (Math.log(p0) /
+			 * Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2)))); entropy[0]
+			 * += -n; if (n < entropy[1]) entropy[1] = n;
+			 */
 		}
-		double p1 = (double)ones / (double)count;
-		double p0 = ((double)count - (double)ones) / (double)count;
-		double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
+		final double p1 = (double) ones / (double) count;
+		final double p0 = ((double) count - (double) ones) / count;
+		final double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
 		entropy[0] += -n;
-		if (n < entropy[1])
+		if (n < entropy[1]) {
 			entropy[1] = n;
+		}
 		entropy[0] = -entropy[0];
 		return entropy;
 	}
 
-	public static double[] entropy(String file) {
-		double[] entropy = new double[2];
+	public static double[] entropy(final String file) {
+		final double[] entropy = new double[2];
 		entropy[0] = 0;
 		entropy[1] = Double.POSITIVE_INFINITY;
 		long count = 0;
 		long ones = 0;
-		if (file.isEmpty())
+		if (file.isEmpty()) {
 			return null;
+		}
 
 		BufferedReader br = null;
 		try {
 			String text;
 			br = new BufferedReader(new FileReader(file));
 			while ((text = br.readLine()) != null) {
-				char[] binaryOfText = toBinary(text).toCharArray();
+				final char[] binaryOfText = toBinary(text).toCharArray();
 				count += binaryOfText.length;
 				double numOfOnes = 0;
-				for (int i = 0; i < binaryOfText.length; i++) {
-					if (binaryOfText[i] == '1')
+				for (final char element : binaryOfText) {
+					if (element == '1') {
 						numOfOnes++;
+					}
 				}
 				ones += numOfOnes;
-				
-				double p1 = numOfOnes / (double)binaryOfText.length;
-				double p0 = ((double)binaryOfText.length - numOfOnes) / (double)binaryOfText.length;
-				double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
-				//entropy[0] += -n;
-				if (n < entropy[1])
+
+				final double p1 = numOfOnes / binaryOfText.length;
+				final double p0 = (binaryOfText.length - numOfOnes) / binaryOfText.length;
+				final double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
+				// entropy[0] += -n;
+				if (n < entropy[1]) {
 					entropy[1] = n;
+				}
 			}
-			double p1 = (double)ones / (double)count;
-			double p0 = ((double)count - (double)ones) / (double)count;
-			double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
+			final double p1 = (double) ones / (double) count;
+			final double p0 = ((double) count - (double) ones) / count;
+			final double n = -((p0 * (Math.log(p0) / Math.log(2))) + (p1 * (Math.log(p1) / Math.log(2))));
 			entropy[0] += -n;
-			if (n < entropy[1])
+			if (n < entropy[1]) {
 				entropy[1] = n;
-		} catch (IOException e) {
+			}
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -1012,8 +1046,8 @@ public class Tests {
 		return entropy;
 	}
 
-	public static double minentropy(String file) {
-		double[] entropies = new double[9216];
+	public static double minentropy(final String file) {
+		final double[] entropies = new double[9216];
 		BufferedReader br1 = null;
 		int countRows = 0;
 		try {
@@ -1021,23 +1055,25 @@ public class Tests {
 			br1 = new BufferedReader(new FileReader("generaltak/generaltkulcsok.txt"));
 
 			while ((tweet = br1.readLine()) != null) {
-				char[] betuk = toBinary(tweet).toCharArray();
-				if (betuk.length > 0)
+				final char[] betuk = toBinary(tweet).toCharArray();
+				if (betuk.length > 0) {
 					for (int i = 0; i < betuk.length; i++) {
 						if (betuk[i] == '1') {
 							entropies[i]++;
 						}
 					}
+				}
 				countRows++;
 				System.out.println(tweet);
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (br1 != null)
+				if (br1 != null) {
 					br1.close();
-			} catch (IOException ex) {
+				}
+			} catch (final IOException ex) {
 				ex.printStackTrace();
 			}
 		}
@@ -1047,11 +1083,13 @@ public class Tests {
 		for (int i = 0; i < entropies.length; i++) {
 			if (entropies[i] != 0) {
 				entropies[i] /= countRows;
-				double n = -(Math.log(entropies[i]) / Math.log(2));
-				if (n < minEntrophy)
+				final double n = -(Math.log(entropies[i]) / Math.log(2));
+				if (n < minEntrophy) {
 					minEntrophy = entropies[i];
-				if (n > maxEntrophy)
+				}
+				if (n > maxEntrophy) {
 					maxEntrophy = entropies[i];
+				}
 				sumEntrophy += -(entropies[i] * (Math.log(entropies[i]) / Math.log(2)));
 				System.out.println(entropies[i]);
 			}
@@ -1063,11 +1101,11 @@ public class Tests {
 		return minEntrophy;
 	}
 
-	public static byte[] hash(byte[] salt) {
-		PBEKeySpec spec = new PBEKeySpec(null, salt, 2000, 256);
+	public static byte[] hash(final byte[] salt) {
+		final PBEKeySpec spec = new PBEKeySpec(null, salt, 2000, 256);
 		// Arrays.fill(password, Character.MIN_VALUE);
 		try {
-			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			final SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 			return skf.generateSecret(spec).getEncoded();
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
@@ -1075,91 +1113,85 @@ public class Tests {
 			spec.clearPassword();
 		}
 	}
-	
-	public static void createFilesForColls(String src) {
-		if (src == null | "".equals(src))
+
+	public static void createFilesForColls(final String src) {
+		if (src == null | "".equals(src)) {
 			return;
+		}
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(src));
 			String encripted;
 			while ((encripted = br.readLine()) != null) {
-					//SHA/Skein
-					PrintWriter chars64 = null;
-					PrintWriter chars32 = null;
-					PrintWriter chars16 = null;
-					if (src.endsWith(Constants.sha)) {
-						chars64 = new PrintWriter(
-							((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath()
-							+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.sha64);
-						chars32 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath()
-								+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.sha32);
-						chars16 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath()
-								+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.sha16);
-						//BufferedWriter chars8 = new BufferedWriter(new FileWriter(
-						//		VaadinServlet.getCurrent().getServletContext().getRealPath("") + Constants.sha8));
+				// SHA/Skein
+				PrintWriter chars64 = null;
+				PrintWriter chars32 = null;
+				PrintWriter chars16 = null;
+				if (src.endsWith(Constants.sha)) {
+					chars64 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.sha64);
+					chars32 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.sha32);
+					chars16 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.sha16);
+					// BufferedWriter chars8 = new BufferedWriter(new
+					// FileWriter(
+					// VaadinServlet.getCurrent().getServletContext().getRealPath("")
+					// + Constants.sha8));
+				} else if (src.endsWith(Constants.skein)) {
+					chars64 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.skein64);
+					chars32 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.skein32);
+					chars16 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.skein16);
+				} else {
+					chars64 = new PrintWriter(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+							+ ((KeyanalysisUI) UI.getCurrent()).getProcess().getFile().getName() + Constants.aes64);
+				}
+				if (src.endsWith(Constants.aes)) {
+					final Iterator<String> it = get64Characters(encripted).iterator();
+					while (it.hasNext()) {
+						chars64.println(it.next());
 					}
-					else if (src.endsWith(Constants.skein)) {
-						chars64 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath()
-								+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.skein64);
-						chars32 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath() 
-									+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.skein32);
-						chars16 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath()
-									+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.skein16);
+					chars64.close();
+				} else {
+					Iterator<String> it = get64Characters(encripted).iterator();
+					while (it.hasNext()) {
+						chars64.println(it.next());
 					}
-					else {
-						chars64 = new PrintWriter(
-								((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath() 
-								+ ((KeyanalysisUI)UI.getCurrent()).getProcess().getFile().getName() + Constants.aes64);
+					it = get32Characters(encripted).iterator();
+					while (it.hasNext()) {
+						chars32.println(it.next());
 					}
-					if (src.endsWith(Constants.aes) ) {
-						Iterator<String> it = get64Characters(encripted).iterator();
-						while(it.hasNext()) {
-							chars64.println(it.next());
-						}
-						chars64.close();
+					it = get16Characters(encripted).iterator();
+					while (it.hasNext()) {
+						chars16.println(it.next());
 					}
-					else {
-						Iterator<String> it = get64Characters(encripted).iterator();
-						while(it.hasNext()) {
-							chars64.println(it.next());
-						}
-						it = get32Characters(encripted).iterator();
-						while(it.hasNext()) {
-							chars32.println(it.next());
-						}
-						it = get16Characters(encripted).iterator();
-						while(it.hasNext()) {
-							chars16.println(it.next());
-						}
-						chars64.close();
-						chars32.close();
-						chars16.close();
-					}
+					chars64.close();
+					chars32.close();
+					chars16.close();
+				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
-				if (br != null)
+				if (br != null) {
 					br.close();
-			} catch (IOException e) {
+				}
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public static int countCollsFromFile(File file) {
 		file = sortFile(file);
 		int colls = 0;
-		if (file == null || !file.exists() || file.isDirectory())
+		if (file == null || !file.exists() || file.isDirectory()) {
 			return colls;
+		}
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -1172,25 +1204,24 @@ public class Tests {
 				line = next;
 				next = null;
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				br.close();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
 		return colls;
 	}
-	
-	private static File sortFile(File file) {
-		File newFile = new File(((KeyanalysisUI)UI.getCurrent()).getProcess().getFilePath() + 
-				file.getName().substring(0, file.getName().lastIndexOf(".")) + "sorted.txt" );
+
+	private static File sortFile(final File file) {
+		final File newFile = new File(((KeyanalysisUI) UI.getCurrent()).getProcess().getFilePath()
+				+ file.getName().substring(0, file.getName().lastIndexOf(".")) + "sorted.txt");
 		try {
 			ExternalSort.sort(file, newFile);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		return newFile;

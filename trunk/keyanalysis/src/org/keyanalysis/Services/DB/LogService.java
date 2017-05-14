@@ -12,17 +12,17 @@ import org.keyanalysis.Model.User;
 import com.vaadin.ui.UI;
 
 public class LogService {
-	public static void AddLogEntry(String action, Object obj, String type) {
+	public static void AddLogEntry(final String action, final Object obj, final String type) {
 
-		EntityManager em = CreateService.createEntityManager();
+		final EntityManager em = CreateService.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Log log = new Log();
+			final Log log = new Log();
 			User user = null;
-			if(obj == null)
+			if (obj == null) {
 				user = (User) UI.getCurrent().getSession().getAttribute("USER");
-			else {
-				user = (User)obj;
+			} else {
+				user = (User) obj;
 			}
 			log.setUser(user);
 			log.setAction(action);
@@ -31,7 +31,7 @@ public class LogService {
 
 			em.persist(log);
 			em.getTransaction().commit();
-		} catch (HibernateException e) {
+		} catch (final HibernateException e) {
 			if (em.getTransaction() != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 				e.printStackTrace();

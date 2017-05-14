@@ -18,16 +18,17 @@ import twitter4j.Status;
 
 public class TweetService {
 	private static EntityManager em;
-	public static boolean addTweet(Status t) {
+
+	public static boolean addTweet(final Status t) {
 		boolean succeeded = false;
-		
+
 		em = CreateService.createEntityManager();
 		EntityTransaction tx = null;
 		try {
 			tx = em.getTransaction();
 			tx.begin();
-			Tweet tweet = new Tweet();
-			
+			final Tweet tweet = new Tweet();
+
 			tweet.setDate(t.getCreatedAt());
 			tweet.setRetweetId(t.getCurrentUserRetweetId());
 			tweet.setFavoriteCount(t.getFavoriteCount());
@@ -41,7 +42,7 @@ public class TweetService {
 			tweet.setSource(t.getSource());
 			tweet.setUser(t.getUser().getName());
 			tweet.setText(t.getText());
-			
+
 			if (t.getGeoLocation() == null) {
 				tweet.setGeoLatitude(0);
 				tweet.setGeoLongitude(0);
@@ -49,7 +50,7 @@ public class TweetService {
 				tweet.setGeoLatitude(t.getGeoLocation().getLatitude());
 				tweet.setGeoLongitude(t.getGeoLocation().getLongitude());
 			}
-			
+
 			if (t.getPlace() == null) {
 				tweet.setCountry(null);
 				tweet.setCountryCode(null);
@@ -61,20 +62,19 @@ public class TweetService {
 			tx.commit();
 			appendTweetFile(tweet.getText());
 			succeeded = true;
-		}
-		catch(HibernateException e) {
-			if (tx != null && tx.isActive())
+		} catch (final HibernateException e) {
+			if (tx != null && tx.isActive()) {
 				tx.rollback();
+			}
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			em.close();
 		}
-		
+
 		return succeeded;
 	}
-	
-	public static void appendTweetFile(File file) {
+
+	public static void appendTweetFile(final File file) {
 		PrintWriter pw = null;
 		BufferedReader br = null;
 		try {
@@ -84,31 +84,34 @@ public class TweetService {
 			while ((txt = br.readLine()) != null) {
 				pw.println(txt);
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (pw != null)
+			if (pw != null) {
 				pw.close();
-			if (br != null)
+			}
+			if (br != null) {
 				try {
 					br.close();
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					e.printStackTrace();
 				}
+			}
 			file.delete();
 		}
 	}
-	
-	private static void appendTweetFile(String txt) {
+
+	private static void appendTweetFile(final String txt) {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new BufferedWriter(new FileWriter(new File("data/newtweets.txt"), true)));
 			pw.println(txt);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (pw != null)
+			if (pw != null) {
 				pw.close();
+			}
 		}
 	}
 }

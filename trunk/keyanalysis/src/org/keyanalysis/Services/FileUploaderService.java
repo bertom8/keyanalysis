@@ -35,7 +35,7 @@ public class FileUploaderService
 
 	private static final long serialVersionUID = -4147314482814608185L;
 	Thread t = null;
-	KeyanalysisUI ui = (KeyanalysisUI)UI.getCurrent();
+	KeyanalysisUI ui = (KeyanalysisUI) UI.getCurrent();
 	UploadWindow window = null;
 	File file;
 	String filePath = VaadinServlet.getCurrent().getServletContext().getRealPath("");
@@ -46,33 +46,35 @@ public class FileUploaderService
 	private String filename;
 	boolean done = false;
 
-	public FileUploaderService(Window window) {
+	public FileUploaderService(final Window window) {
 		this.window = (UploadWindow) window;
 	}
 
 	@Override
-	public OutputStream receiveUpload(String filename, String MIMEType) {
+	public OutputStream receiveUpload(final String filename, final String MIMEType) {
 		this.mime = MIMEType;
 		this.filename = filename;
 		FileOutputStream fos = null;
-		boolean loggedIn = VaadinSession.getCurrent().getAttribute("USER") != null;
+		final boolean loggedIn = VaadinSession.getCurrent().getAttribute("USER") != null;
 		if (loggedIn) {
-			File dir = new File(filePath + "uploadDatas");
-			if (!dir.exists())
+			final File dir = new File(this.filePath + "uploadDatas");
+			if (!dir.exists()) {
 				dir.mkdir();
+			}
 		} else {
-			File dir = new File(filePath + "uploadDatas/tmp");
-			if (!dir.exists())
+			final File dir = new File(this.filePath + "uploadDatas/tmp");
+			if (!dir.exists()) {
 				dir.mkdirs();
+			}
 		}
-		String pathToFile = filePath + "uploadDatas/" + (!loggedIn ? "/tmp/" : "") + DigestService.getMD5Hash(filename + Date.from(Instant.now()).getTime())
-							+ "/";
+		final String pathToFile = this.filePath + "uploadDatas/" + (!loggedIn ? "/tmp/" : "")
+				+ DigestService.getMD5Hash(filename + Date.from(Instant.now()).getTime()) + "/";
 		new File(pathToFile).mkdir();
-		filePath = pathToFile;
-		file = new File(filePath + filename);
-		ui.setFile(file);
+		this.filePath = pathToFile;
+		this.file = new File(this.filePath + filename);
+		this.ui.setFile(this.file);
 		try {
-			fos = new FileOutputStream(file);
+			fos = new FileOutputStream(this.file);
 		} catch (final java.io.FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -82,81 +84,89 @@ public class FileUploaderService
 	}
 
 	@Override
-	public void uploadSucceeded(Upload.SucceededEvent event) {
-		done = true;
-		ui.getProgress().setValue((float) 1.0);
-		ui.removeProgress();
+	public void uploadSucceeded(final Upload.SucceededEvent event) {
+		this.done = true;
+		this.ui.getProgress().setValue((float) 1.0);
+		this.ui.removeProgress();
 		Notification.show(Constants.uploadDone, Notification.Type.HUMANIZED_MESSAGE);
 	}
 
 	@Override
-	public void uploadFailed(FailedEvent event) {
+	public void uploadFailed(final FailedEvent event) {
 		Notification.show(Constants.uploadUndone, Notification.Type.ERROR_MESSAGE);
-		ui.getProgress().setValue((float) 0);
-		ui.getRoot().getContent().removeAllComponents();
+		this.ui.getProgress().setValue((float) 0);
+		this.ui.getRoot().getContent().removeAllComponents();
 	}
 
 	@Override
-	public void uploadStarted(StartedEvent event) {
+	public void uploadStarted(final StartedEvent event) {
 		if (event.getContentLength() > uploadSize) {
 			Notification.show(Constants.bigFile, Notification.Type.ERROR_MESSAGE);
 			event.getUpload().interruptUpload();
 		}
 		switch (event.getFilename().substring(event.getFilename().lastIndexOf("."), event.getFilename().length())) {
-			case ".txt": 
-				break;
-			case ".csv": 
-				window.getHasHeader().setVisible(true);
-				TextField delimit = window.getDelimiter();
-				delimit.setVisible(true);
-				delimit.setEnabled(true);
-				window.setDelimiter(delimit);
-				break;
-			case ".json": 
-				TextField tf1 = window.getFormat();
-				tf1.setCaption(Constants.whichTag);
-				tf1.setVisible(true);
-				tf1.setEnabled(true);
-				window.setFormat(tf1);
-				break;
-			default: 
-				Notification.show(Constants.uploadUndone, Constants.wrongFileformat, Notification.Type.ERROR_MESSAGE);
-				event.getUpload().interruptUpload();
-				break;
+		case ".txt":
+			break;
+		case ".csv":
+			this.window.getHasHeader().setVisible(true);
+			final TextField delimit = this.window.getDelimiter();
+			delimit.setVisible(true);
+			delimit.setEnabled(true);
+			this.window.setDelimiter(delimit);
+			break;
+		case ".json":
+			final TextField tf1 = this.window.getFormat();
+			tf1.setCaption(Constants.whichTag);
+			tf1.setVisible(true);
+			tf1.setEnabled(true);
+			this.window.setFormat(tf1);
+			break;
+		default:
+			Notification.show(Constants.uploadUndone, Constants.wrongFileformat, Notification.Type.ERROR_MESSAGE);
+			event.getUpload().interruptUpload();
+			break;
 		}
-		upload = event.getUpload();
-		ui.drawProgress(Constants.uploading);
+		this.upload = event.getUpload();
+		this.ui.drawProgress(Constants.uploading);
 	}
 
 	@Override
-	public void updateProgress(long readBytes, long contentLength) {
+	public void updateProgress(final long readBytes, final long contentLength) {
 		if (readBytes > uploadSize) {
 			Notification.show(Constants.bigFile, Notification.Type.ERROR_MESSAGE);
-			upload.interruptUpload();
+			this.upload.interruptUpload();
 		}
 
-		float progressBarPercent = readBytes / contentLength;
-		ui.getProgress().setValue(progressBarPercent);
-		ui.getProgress().markAsDirty();
+		final float progressBarPercent = readBytes / contentLength;
+		this.ui.getProgress().setValue(progressBarPercent);
+		this.ui.getProgress().markAsDirty();
 	}
-	
+
 	public boolean isDone() {
-		return done;
+		return this.done;
+	}
+
+	public void setDone(final boolean value) {
+		this.done = value;
 	}
 
 	public Thread getThread() {
-		return t;
-	}
-	
-	public String getFilename() {
-		return filename;
+		return this.t;
 	}
 
-	public void setFilename(String filename) {
+	public String getFilename() {
+		return this.filename;
+	}
+
+	public void setFilename(final String filename) {
 		this.filename = filename;
 	}
-	
+
 	public String getFilePath() {
-		return filePath;
+		return this.filePath;
+	}
+
+	public void setFilePath(final String filepath) {
+		this.filePath = filepath;
 	}
 }

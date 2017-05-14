@@ -11,88 +11,88 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class Item {
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	@Column(name="time")
+
+	@Column(name = "time")
 	private Timestamp time = new Timestamp(new Date().getTime());
 
 	@ManyToOne
 	private Storage storage = null;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name = "";
-	
-	@Column(name="deleted", nullable = false, columnDefinition = "BIT default 0")
+
+	@Column(name = "deleted", nullable = false, columnDefinition = "BIT default 0")
 	private boolean deleted = false;
-	
-	@Column(name="filepath", nullable = false)
+
+	@Column(name = "filepath", nullable = false)
 	private String filePath = "";
-	
-	@Column(name="benchmark")
+
+	@Column(name = "benchmark")
 	private double benchmark = 0.0;
-	
+
 	public String getFilePath() {
-		return filePath;
+		return this.filePath;
 	}
 
-	public void setFilePath(String filePath) {
+	public void setFilePath(final String filePath) {
 		this.filePath = filePath;
 	}
 
 	public double getBenchmark() {
-		return benchmark;
+		return this.benchmark;
 	}
 
-	public void setBenchmark(double benchmark) {
+	public void setBenchmark(final double benchmark) {
 		this.benchmark = benchmark;
 	}
 
 	public Storage getStorage() {
-		return storage;
+		return this.storage;
 	}
 
-	public void setStorage(Storage storage) {
+	public void setStorage(final Storage storage) {
 		this.storage = storage;
 	}
-	
+
 	public boolean isDeleted() {
-		return deleted;
+		return this.deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(final boolean deleted) {
 		this.deleted = deleted;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
 	public Timestamp getTime() {
-		return time;
+		return this.time;
 	}
 
-	public void setTime(Timestamp time) {
+	public void setTime(final Timestamp time) {
 		this.time = time;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return name;
+		return this.name;
 	}
 }
