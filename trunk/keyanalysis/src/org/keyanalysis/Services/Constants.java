@@ -47,42 +47,42 @@ public class Constants {
 	public static final int textblowfishHammingPanel_Number = 19;
 
 	// Panel elnevezï¿½sek
-	public static final String textPerAESPanel = "Forrás és AES titkosításainak 1/0 aránya";
-	public static final String textPerSerpentPanel = "Forrás és Serpent titkosításainak 1/0 aránya";
-	public static final String textPerBlowfishPanel = "Forrás és Blowfish titkosításainak 1/0 aránya";
-	public static final String textPerTwofishPanel = "Forrás és Twofish titkosításainak 1/0 aránya";
-	public static final String AES10Panel = "AES-ben lévõ 1/0 arány";
-	public static final String key10Panel = "Kulcsokban lévõ 1/0 arány";
-	public static final String serpentPanel = "Serpentben lévõ 1/0 arány";
-	public static final String blowfishPanel = "Blowfishben lévõ 1/0 arány";
-	public static final String twofishPanel = "Twofishben lévõ 1/0 arány";
-	public static final String textLengthPanel = "Források bináris hosszai";
-	public static final String textAESHammingPanel = "Forrás és AES-eik hamming távolsága / Forrás bináris hossza";
-	public static final String textSerpentHammingPanel = "Forrás és Serpentjeik hamming távolsága / Forrás bináris hossza";
-	public static final String textBlowfishHammingPanel = "Forrás és Blowfisheik hamming távolsága / Forrás bináris hossza";
-	public static final String textTwofishHammingPanel = "Forrás és Twofisheik hamming távolsága / Forrás bináris hossza";
-	public static final String textSHAHammingPanel = "Forrás és SHA-ik Hamming távolsága / Forrás bináris hossza";
-	public static final String textSkeinHammingPanel = "Forrás és Skein-ik Hamming távolsága / Forrás bináris hossza";
+	public static final String textPerAESPanel = "Binary rate of source and AES encode";
+	public static final String textPerSerpentPanel = "Binary rate of source and Serpent encode";
+	public static final String textPerBlowfishPanel = "Binary rate of source and Blowfish encode";
+	public static final String textPerTwofishPanel = "Binary rate of source and Twofish encode";
+	public static final String AES10Panel = "Binary rate in AES strings";
+	public static final String key10Panel = "Binary rate in key strings";
+	public static final String serpentPanel = "Binary rate in Serpent strings";
+	public static final String blowfishPanel = "Binary rate in Blowfish strings";
+	public static final String twofishPanel = "Binary rate in Twofish strings";
+	public static final String textLengthPanel = "Distances of binaries of the source";
+	public static final String textAESHammingPanel = "Hamming-distance of source and AES / Distances of binaries of the source";
+	public static final String textSerpentHammingPanel = "Hamming-distance of source and Serpent / Distances of binaries of the source";
+	public static final String textBlowfishHammingPanel = "Hamming-distance of source and Blowfish / Distances of binaries of the source";
+	public static final String textTwofishHammingPanel = "Hamming-distance of source and Twofish / Distances of binaries of the source";
+	public static final String textSHAHammingPanel = "Hamming-distance of source and SHA / Distances of binaries of the source";
+	public static final String textSkeinHammingPanel = "Hamming-distance of source and Skein / Distances of binaries of the source";
 	public static final String entropyPanel = "Entropies";
-	public static final String textPerSHAPanel = "Forrás és SHA hasheinek 1/0 aránya";
-	public static final String textPerSkeinPanel = "Forrás és Skein hasheinek 1/0 aránya";
+	public static final String textPerSHAPanel = "Binary rate of source and SHA hashes";
+	public static final String textPerSkeinPanel = "Binary rate of source and Skein hashes";
 	public static final String collisionsPanel = "Collisions";
 
 	// EntrÃ³pia
-	public static final String SourceEntropy = "A forrás Shannon entrópiája: ";
-	public static final String AesEntropy = "Az AES Shannon entrópiája: ";
-	public static final String SerpentEntropy = "Az Serpent Shannon entrópiája: ";
-	public static final String BlowfishEntropy = "Az Blowfish Shannon entrópiája: ";
-	public static final String TwofishEntropy = "Az Twofish Shannon entrópiája: ";
-	public static final String ShaEntropy = "Az SHA Shannon entrópiája: ";
-	public static final String SkeinEntropy = "A Skein Shannon entrópiája: ";
-	public static final String SourceMinEntropy = "A forrás minimum entrópiája: ";
-	public static final String AesMinEntropy = "Az AES minimum entrópiája: ";
-	public static final String SerpentMinEntropy = "Az Serpent minimum entrópiája: ";
-	public static final String BlowfishMinEntropy = "Az Blowfish minimum entrópiája: ";
-	public static final String TwofishMinEntropy = "Az Twofish minimum entrópiája: ";
-	public static final String ShaMinEntropy = "Az SHA minimum entrópiája: ";
-	public static final String SkeinMinEntropy = "A Skein minimum entrópiája: ";
+	public static final String SourceEntropy = "Shannon entropy of the source: ";
+	public static final String AesEntropy = "Shannon entropy of the AES: ";
+	public static final String SerpentEntropy = "Shannon entropy of the Serpent: ";
+	public static final String BlowfishEntropy = "Shannon entropy of the Blowfish: ";
+	public static final String TwofishEntropy = "Shannon entropy of the Twofish: ";
+	public static final String ShaEntropy = "Shannon entropy of the SHA: ";
+	public static final String SkeinEntropy = "Shannon entropy of the Skein: ";
+	public static final String SourceMinEntropy = "Min-entropy of the source: ";
+	public static final String AesMinEntropy = "Min-entropy of the AES: ";
+	public static final String SerpentMinEntropy = "Min-entropy of the Serpent: ";
+	public static final String BlowfishMinEntropy = "Min-entropy of the Blowfish: ";
+	public static final String TwofishMinEntropy = "Min-entropy of the Twofish: ";
+	public static final String ShaMinEntropy = "Min-entropy of the SHA: ";
+	public static final String SkeinMinEntropy = "Min-entropy of the Skein: ";
 
 	// Ütközések
 

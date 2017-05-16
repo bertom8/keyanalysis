@@ -11,14 +11,13 @@ public class StorageWindow extends Window {
 
 	public StorageWindow(final User u) {
 		super();
-		this.setCaption("Show items");
-		// setStyleName(Constants.STYLE_MAIN_TITLE);
+		this.setCaption(Messages.getString("StorageWindow.0")); //$NON-NLS-1$
 		this.setResizable(false);
 		this.center();
 		this.setSizeFull();
-		final TableCreatorUtility tcu = new TableCreatorUtility("Items", Item.class, u, this);
+		final TableCreatorUtility tcu = new TableCreatorUtility(Messages.getString("StorageWindow.1"), Item.class, u, this); //$NON-NLS-1$
 		final GridLayout layout = tcu.createTableLayout();
-		layout.setId("scrollstyleItems");
+		layout.setId(Messages.getString("StorageWindow.2")); //$NON-NLS-1$
 		this.setContent(layout);
 	}
 }

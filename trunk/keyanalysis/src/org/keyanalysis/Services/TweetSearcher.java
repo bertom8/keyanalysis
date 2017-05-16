@@ -30,6 +30,8 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TweetSearcher {
+	private static final String path = VaadinServlet.getCurrent().getServletContext().getRealPath("");
+
 	public static void searchHunTweets(final long num) {
 		final ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true).setOAuthConsumerKey("ORlWMuKHZL12IsBPYUpxrMlLR")
@@ -55,23 +57,29 @@ public class TweetSearcher {
 		if (result == null) {
 			return;
 		}
-		System.out.println(result.getTweets().size());
+		// System.out.println(result.getTweets().size());
 		for (final Status tweet : result.getTweets()) {
-			System.out.println("@" + tweet.getUser().getScreenName() + ":" + tweet.getText());
-			TweetService.addTweet(tweet);
+			// System.out.println("@" + tweet.getUser().getScreenName() + ":" +
+			// tweet.getText());
+			// TweetService.addTweet(tweet);
+			TweetService.appendTweetFile(tweet.getText());
 		}
-		final ProcessService ps = new ProcessService("twitter.txt",
-				VaadinServlet.getCurrent().getServletContext().getRealPath("") + "/data/");
+		final ProcessService ps = new ProcessService("newTweets.txt", path + "/uploadDatas/");
 		((KeyanalysisUI) UI.getCurrent()).setProcess(ps);
-		((KeyanalysisUI) UI.getCurrent()).getProcess().run();
-		TweetService.appendTweetFile(new File("data/newTweets.txt"));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.aes));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.key));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.sha));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.skein));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.serpent));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.blowfish));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.twofish));
+		if (((KeyanalysisUI) UI.getCurrent()).getProcess().runWithTweets()) {
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt"), "");
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.aes), Constants.aes);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.key), Constants.key);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.sha), Constants.sha);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.skein),
+					Constants.skein);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.serpent),
+					Constants.serpent);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.blowfish),
+					Constants.blowfish);
+			TweetService.appendTweetFile(new File(path + "/uploadDatas/newTweets.txt" + Constants.twofish),
+					Constants.twofish);
+		}
 	}
 
 	public static void searchEngTweets(final long num) {
@@ -99,23 +107,26 @@ public class TweetSearcher {
 		if (result == null) {
 			return;
 		}
-		System.out.println(result.getTweets().size());
+		// System.out.println(result.getTweets().size());
 		for (final Status tweet : result.getTweets()) {
-			System.out.println("@" + tweet.getUser().getScreenName() + ":" + tweet.getText());
+			// System.out.println("@" + tweet.getUser().getScreenName() + ":" +
+			// tweet.getText());
 			TweetService.addTweet(tweet);
 		}
-		final ProcessService ps = new ProcessService("twitter.txt",
-				VaadinServlet.getCurrent().getServletContext().getRealPath("") + "/data/");
+		final ProcessService ps = new ProcessService("newTweets.txt", path + "/uploadDatas/");
 		((KeyanalysisUI) UI.getCurrent()).setProcess(ps);
-		((KeyanalysisUI) UI.getCurrent()).getProcess().run();
-		TweetService.appendTweetFile(new File("data/newTweets.txt"));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.aes));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.key));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.sha));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.skein));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.serpent));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.blowfish));
-		TweetService.appendTweetFile(new File("data/newTweets.txt" + Constants.twofish));
+		((KeyanalysisUI) UI.getCurrent()).getProcess().runWithTweets();
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt"), "");
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.aes), Constants.aes);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.key), Constants.key);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.sha), Constants.sha);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.skein), Constants.skein);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.serpent),
+				Constants.serpent);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.blowfish),
+				Constants.blowfish);
+		TweetService.appendTweetFile(new File(path + "uploadDatas/newTweets.txt" + Constants.twofish),
+				Constants.twofish);
 
 	}
 

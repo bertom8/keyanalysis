@@ -71,6 +71,7 @@ public class ProcessService implements Runnable {
 	public ProcessService(final String filename, final String newFilePath) {
 		this.filename = filename;
 		this.filePath = newFilePath;
+		this.window = new UploadWindow("");
 		this.file = new File(this.filePath + filename);
 	}
 
@@ -85,10 +86,12 @@ public class ProcessService implements Runnable {
 		}
 	}
 
-	public void runWithTweets() {
+	public boolean runWithTweets() {
 		if (this.file.isFile() && this.file.exists()) {
 			this.encode();
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -226,7 +229,7 @@ public class ProcessService implements Runnable {
 								blowfish = DigestService.encriptBlowfish(next, this.key);
 								twofish = DigestService.encriptTwofish(next, this.key);
 							} catch (final InvalidKeyException e) {
-								new Notification("Rossz kulcs!", Type.ERROR_MESSAGE);
+								new Notification("Wrong key!", Type.ERROR_MESSAGE);
 							}
 						} while ((Tests.getHammingDistance(new String(this.key.getEncoded(), "UTF-8"), aes)
 								/ new String(this.key.getEncoded(), "UTF-8").length()) < this.window.getHammingDist());
@@ -238,7 +241,7 @@ public class ProcessService implements Runnable {
 							blowfish = DigestService.encriptBlowfish(next, this.key);
 							twofish = DigestService.encriptTwofish(next, this.key);
 						} catch (final InvalidKeyException e) {
-							new Notification("Rossz kulcs!", Type.ERROR_MESSAGE);
+							new Notification("Wrong key!", Type.ERROR_MESSAGE);
 						}
 					}
 					pwKey.println(Base64.getEncoder().encodeToString(this.key.getEncoded()));
@@ -252,7 +255,7 @@ public class ProcessService implements Runnable {
 						twofish = DigestService.encriptTwofish(next,
 								new SecretKeySpec(this.keyString.getBytes(), "Twofish"));
 					} catch (final InvalidKeyException e) {
-						new Notification("Rossz kulcs!", Type.ERROR_MESSAGE);
+						new Notification("Wrong key!", Type.ERROR_MESSAGE);
 					}
 				}
 				// String aes = DigestService.encriptAES(next, key);

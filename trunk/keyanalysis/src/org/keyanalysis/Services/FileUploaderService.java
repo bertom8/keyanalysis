@@ -72,7 +72,6 @@ public class FileUploaderService
 		new File(pathToFile).mkdir();
 		this.filePath = pathToFile;
 		this.file = new File(this.filePath + filename);
-		this.ui.setFile(this.file);
 		try {
 			fos = new FileOutputStream(this.file);
 		} catch (final java.io.FileNotFoundException e) {

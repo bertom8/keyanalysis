@@ -58,9 +58,7 @@ public class KeyanalysisUI extends UI {
 	private final ValoMenuLayout root = new ValoMenuLayout();
 	private final ProgressBar progress = new ProgressBar();
 	private ProcessService process = null;
-	private File file = null;
 	private final NativeSelect lista = null;
-	// private Button chooseButton = null;
 	private Button loginButton = null;
 	private MenuBar profil = null;
 
@@ -77,11 +75,7 @@ public class KeyanalysisUI extends UI {
 		Page.getCurrent().setTitle("Keyanalysis");
 		this.createMainUI();
 		final Timer ti = new Timer();
-		ti.scheduleAtFixedRate(new SchedulerService(), new Date(), 1111111);
-		/*
-		 * Thread t = new Thread(new SchedulerService()); t.start(); try {
-		 * t.join(); } catch (InterruptedException e) { e.printStackTrace(); }
-		 */
+		ti.scheduleAtFixedRate(new SchedulerService(), new Date(), 604800000);
 	}
 
 	/**
@@ -95,7 +89,7 @@ public class KeyanalysisUI extends UI {
 	}
 
 	/**
-	 * 
+	 * This create the header line and it's content
 	 */
 	private void createMenu() {
 		// Title
@@ -133,7 +127,13 @@ public class KeyanalysisUI extends UI {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				final ProcessService ps = new ProcessService("twitter.txt", "");
+				final File dir = new File(
+						VaadinServlet.getCurrent().getServletContext().getRealPath("") + "uploadDatas/");
+				if (!dir.exists()) {
+					dir.mkdir();
+				}
+				final ProcessService ps = new ProcessService("twitter.txt",
+						VaadinServlet.getCurrent().getServletContext().getRealPath("") + "uploadDatas/");
 				KeyanalysisUI.this.setProcess(ps);
 				KeyanalysisUI.this.process.makeCharts();
 			}
@@ -176,32 +176,18 @@ public class KeyanalysisUI extends UI {
 		this.loginButton.setId("loginButton");
 		if (this.loggedUser == null) {
 			this.root.addMenu(this.loginButton);
+			this.root.getMenu().setExpandRatio(this.loginButton, 1);
 		} else {
 			this.createProfilMenu();
+			this.profil.setId("mainProfil");
 			this.root.getMenu().addComponent(this.profil);
+			this.root.getMenu().setExpandRatio(this.profil, 1);
 		}
-		// root.addMenu(loginButton);
-		/*
-		 * Button twit = new Button("Twitter", new ClickListener() { private
-		 * static final long serialVersionUID = -8781451780815490925L;
-		 * 
-		 * @Override public void buttonClick(ClickEvent event) {
-		 * //org.keyanalysis.Services.TweetSearcher.saveTweetsFromJson(new
-		 * File(VaadinServlet.getCurrent().getServletContext().getRealPath("") +
-		 * "world6_9.txt")); //long time = new Date(1463318280004L).getTime();
-		 * //long time = new Date(1463307961482L).getTime(); long time = new
-		 * Date().getTime() - 10800000*21; for (long i = 0; i < 21; i++) {
-		 * //org.keyanalysis.Services.TweetSearcher.searchEngTweets(time);
-		 * org.keyanalysis.Services.TweetSearcher.searchHunTweets(time); time +=
-		 * 10800000; } //System.out.println(new Date(1463318280004L)); } });
-		 * root.addMenu(twit);
-		 */
 		this.root.getMenu().setExpandRatio(title, 2);
 		this.root.getMenu().setExpandRatio(up, 1);
 		this.root.getMenu().setExpandRatio(twitter, 1);
 		this.root.getMenu().setExpandRatio(downloadButton, 1);
 		this.root.getMenu().setExpandRatio(compareButton, 1);
-		// root.getMenu().setExpandRatio(twit, 1);
 	}
 
 	/**
@@ -265,14 +251,11 @@ public class KeyanalysisUI extends UI {
 		UI.getCurrent().getPage().reload();
 	}
 
+	/**
+	 * This create the menu for profil, user search and logout
+	 */
 	public void createProfilMenu() {
 		this.profil = new MenuBar();
-		// profil.addStyleName("mybarmenu");
-		// layout.addComponent(barmenu);
-
-		// A feedback component
-		// final Label selection = new Label("-");
-		// layout.addComponent(selection);
 		final MenuItem mainProfil = this.profil
 				.addItem(((User) VaadinSession.getCurrent().getAttribute("USER")).getName(), null);
 		mainProfil.addItem("Profil", new Command() {
@@ -345,14 +328,6 @@ public class KeyanalysisUI extends UI {
 	 */
 	public void setProcess(final ProcessService process) {
 		this.process = process;
-	}
-
-	public File getFile() {
-		return this.file;
-	}
-
-	public void setFile(final File file) {
-		this.file = file;
 	}
 
 	public NativeSelect getLista() {

@@ -64,7 +64,7 @@ public class UploadWindow extends Window {
 		final FileUploaderService uploaderService = new FileUploaderService(this);
 		if (item == null) {
 			final Upload up = new Upload();
-			up.setId("uploadForm");
+			up.setId(Messages.getString("UploadWindow.0")); //$NON-NLS-1$
 			up.setButtonCaption(Constants.upload);
 			up.setResponsive(true);
 			up.setReceiver(uploaderService);
@@ -76,8 +76,10 @@ public class UploadWindow extends Window {
 
 			layout.addComponent(up);
 		} else {
-			final String pathToFile = VaadinServlet.getCurrent().getServletContext().getRealPath("") + "uploadDatas/"
-					+ DigestService.getMD5Hash(item.getName() + Date.from(Instant.now()).getTime()) + "/";
+			final String pathToFile = VaadinServlet.getCurrent().getServletContext()
+					.getRealPath(Messages.getString("UploadWindow.1")) + Messages.getString("UploadWindow.2") //$NON-NLS-1$ //$NON-NLS-2$
+					+ DigestService.getMD5Hash(item.getName() + Date.from(Instant.now()).getTime())
+					+ Messages.getString("UploadWindow.3"); //$NON-NLS-1$
 			new File(pathToFile).mkdir();
 			uploaderService.setFilename(item.getName());
 			uploaderService.setFilePath(pathToFile);
@@ -94,11 +96,11 @@ public class UploadWindow extends Window {
 		this.hasHeader.setVisible(false);
 		this.hasHeader.addValueChangeListener(e -> {
 			if ((boolean) e.getProperty().getValue() == true) {
-				this.format.setValue("");
+				this.format.setValue(Messages.getString("UploadWindow.4")); //$NON-NLS-1$
 				this.format.setVisible(true);
 				this.format.setEnabled(true);
 			} else {
-				this.format.setValue("");
+				this.format.setValue(Messages.getString("UploadWindow.5")); //$NON-NLS-1$
 				this.format.setVisible(false);
 				this.format.setEnabled(false);
 			}
@@ -108,26 +110,25 @@ public class UploadWindow extends Window {
 		layout.addComponent(this.format);
 		this.delimiter.setVisible(false);
 		this.delimiter.setCaption(Constants.delimiter);
-		// delimiter.setInputPrompt("");
 		layout.addComponent(this.delimiter);
 
 		this.key = new TextField();
 		this.key.setValue(null);
-		this.key.setNullRepresentation("");
+		this.key.setNullRepresentation(Messages.getString("UploadWindow.6")); //$NON-NLS-1$
 		this.key.setNullSettingAllowed(true);
 		this.key.addValidator(new StringLengthValidator(Constants.notCorrectKey, 32, 32, true));
-		this.key.setId("keyInput");
+		this.key.setId(Messages.getString("UploadWindow.7")); //$NON-NLS-1$
 		this.key.setImmediate(true);
 		this.key.setMaxLength(Constants.keyMaxLength);
-		this.key.setWidth("95%");
+		this.key.setWidth(Messages.getString("UploadWindow.8")); //$NON-NLS-1$
 		this.key.setInputPrompt(Constants.keyFieldPrompt);
 		layout.addComponent(this.key);
 
-		layout.addComponent(new Label("<hr/>", ContentMode.HTML));
+		layout.addComponent(new Label(Messages.getString("UploadWindow.9"), ContentMode.HTML)); //$NON-NLS-1$
 		final TextField hamming = new TextField(Constants.wantedHamming);
 		layout.addComponent(hamming);
 		final HorizontalLayout hl = new HorizontalLayout();
-		hl.setId("uploadControllerButtons");
+		hl.setId(Messages.getString("UploadWindow.10")); //$NON-NLS-1$
 		hl.setMargin(true);
 
 		final Button done = new Button(Constants.done, new ClickListener() {
@@ -139,10 +140,12 @@ public class UploadWindow extends Window {
 					UploadWindow.this.key.setValue(
 							org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(UploadWindow.this.key.getValue()));
 					hamming.setValue(org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(hamming.getValue()));
-					if (hamming.getValue() != null && !("".equals(hamming.getValue()))) {
-						if (!hamming.getValue().matches("[0][\\.|\\,]\\d+")) {
-							new Notification("Error", "Give a correct Hamming value!", Type.ERROR_MESSAGE)
-									.show(Page.getCurrent());
+					if (hamming.getValue() != null
+							&& !(Messages.getString("UploadWindow.11").equals(hamming.getValue()))) { //$NON-NLS-1$
+						if (!hamming.getValue().matches(Messages.getString("UploadWindow.12"))) { //$NON-NLS-1$
+							new Notification(Messages.getString("UploadWindow.13"), //$NON-NLS-1$
+									Messages.getString("UploadWindow.14"), Type.ERROR_MESSAGE) //$NON-NLS-1$
+											.show(Page.getCurrent());
 							return;
 						}
 
@@ -156,13 +159,14 @@ public class UploadWindow extends Window {
 							UploadWindow.this.getWindow(), uploaderService.getFilePath());
 					((KeyanalysisUI) UI.getCurrent()).setProcess(ps);
 					((KeyanalysisUI) UI.getCurrent()).getProcess().run();
-					LogService.AddLogEntry("Successed upload", null, "Item");
+					LogService.AddLogEntry(Messages.getString("UploadWindow.15"), null, //$NON-NLS-1$
+							Messages.getString("UploadWindow.16")); //$NON-NLS-1$
 
 					UploadWindow.this.close();
 				}
 			}
 		});
-		done.setStyleName("uploadButton");
+		done.setStyleName(Messages.getString("UploadWindow.17")); //$NON-NLS-1$
 
 		final Button cancel = new Button(Constants.cancel, new ClickListener() {
 			private static final long serialVersionUID = 1489239772039007250L;
@@ -179,7 +183,7 @@ public class UploadWindow extends Window {
 				UploadWindow.this.close();
 			}
 		});
-		cancel.setStyleName("uploadButton");
+		cancel.setStyleName(Messages.getString("UploadWindow.18")); //$NON-NLS-1$
 
 		hl.addComponents(cancel, done);
 		layout.addComponent(hl);

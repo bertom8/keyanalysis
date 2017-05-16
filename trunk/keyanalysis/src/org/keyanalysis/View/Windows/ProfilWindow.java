@@ -78,23 +78,23 @@ public class ProfilWindow extends Window {
 	}
 
 	private void UserSettingsPanel(final User u) {
-		this.setCaption("Profil");
+		this.setCaption(Messages.getString("ProfilWindow.0")); //$NON-NLS-1$
 		// setStyleName("hasMainTitle");
 		// addStyleName("v-scrollable");
-		this.setWidth("90%");
-		this.setHeight("90%");
+		this.setWidth(Messages.getString("ProfilWindow.1")); //$NON-NLS-1$
+		this.setHeight(Messages.getString("ProfilWindow.2")); //$NON-NLS-1$
 		final GridLayout mainLayout = new GridLayout(1, 2);
 		mainLayout.setColumnExpandRatio(0, 0);
 		mainLayout.setDefaultComponentAlignment(Alignment.TOP_CENTER);
 		mainLayout.setSizeFull();
-		mainLayout.setId("scrollstyleProfil");
+		mainLayout.setId(Messages.getString("ProfilWindow.3")); //$NON-NLS-1$
 		this.setContent(mainLayout);
 		mainLayout.addComponent(this.createPasswordChanger(u), 0, 0);
-		final Panel itemspanel = new Panel("Show items");
-		itemspanel.setWidth("90%");
-		final TableCreatorUtility tcu = new TableCreatorUtility("My items", Item.class, u, this);
+		final Panel itemspanel = new Panel(Messages.getString("ProfilWindow.4")); //$NON-NLS-1$
+		itemspanel.setWidth(Messages.getString("ProfilWindow.5")); //$NON-NLS-1$
+		final TableCreatorUtility tcu = new TableCreatorUtility(Messages.getString("ProfilWindow.6"), Item.class, u, this); //$NON-NLS-1$
 		final GridLayout layout = tcu.createTableLayout();
-		layout.addStyleName("v-scrollable");
+		layout.addStyleName(Messages.getString("ProfilWindow.7")); //$NON-NLS-1$
 		itemspanel.setContent(layout);
 
 		mainLayout.addComponent(itemspanel, 0, 1);
@@ -103,20 +103,20 @@ public class ProfilWindow extends Window {
 	private Panel createPasswordChanger(final User u) {
 		final GridLayout passwordChangeLayout = new GridLayout(2, 3);
 		final Panel passwordChangePanel = new Panel(passwordChangeLayout);
-		passwordChangePanel.setCaption("Jelszóváltás");
-		passwordChangePanel.addStyleName("hasMainTitle");
-		passwordChangeLayout.setWidth("445px");
+		passwordChangePanel.setCaption(Messages.getString("ProfilWindow.8")); //$NON-NLS-1$
+		passwordChangePanel.addStyleName(Messages.getString("ProfilWindow.9")); //$NON-NLS-1$
+		passwordChangeLayout.setWidth(Messages.getString("ProfilWindow.10")); //$NON-NLS-1$
 		passwordChangeLayout.setHeightUndefined();
-		passwordChangePanel.setWidth("450px");
+		passwordChangePanel.setWidth(Messages.getString("ProfilWindow.11")); //$NON-NLS-1$
 		passwordChangePanel.setHeightUndefined();
-		passwordChangeLayout.setHeight("200");
-		final PasswordField oldPassField = new PasswordField("Old password:");
+		passwordChangeLayout.setHeight(Messages.getString("ProfilWindow.12")); //$NON-NLS-1$
+		final PasswordField oldPassField = new PasswordField(Messages.getString("ProfilWindow.13")); //$NON-NLS-1$
 		passwordChangeLayout.addComponent(oldPassField, 0, 0);
-		final PasswordField newPassFirst = new PasswordField("New passwrod twice:");
+		final PasswordField newPassFirst = new PasswordField(Messages.getString("ProfilWindow.14")); //$NON-NLS-1$
 		passwordChangeLayout.addComponent(newPassFirst, 0, 1);
-		final PasswordField newPassSecond = new PasswordField("");
+		final PasswordField newPassSecond = new PasswordField(Messages.getString("ProfilWindow.15")); //$NON-NLS-1$
 		passwordChangeLayout.addComponent(newPassSecond, 1, 1);
-		final Button submit = new Button("Save");
+		final Button submit = new Button(Messages.getString("ProfilWindow.16")); //$NON-NLS-1$
 		passwordChangeLayout.addComponent(submit, 0, 2);
 		passwordChangeLayout.setMargin(new MarginInfo(false, false, false, true));
 		submit.addClickListener(this.submit(u, oldPassField, newPassFirst, newPassSecond));
@@ -138,22 +138,22 @@ public class ProfilWindow extends Window {
 				if (oldPass.equals(u.getPassword())) {
 					oldPassOK = true;
 				} else {
-					new Notification("Error", "Your current password is wrong!", Type.ERROR_MESSAGE)
+					new Notification(Messages.getString("ProfilWindow.17"), Messages.getString("ProfilWindow.18"), Type.ERROR_MESSAGE) //$NON-NLS-1$ //$NON-NLS-2$
 							.show(Page.getCurrent());
 					oldPassOK = false;
 				}
 				if (((newPassFirst.getValue()).equals(newPassSecond.getValue())) && (oldPassOK == true)) {
-					if (newPassFirst.getValue().equals("")) {
-						new Notification("Error", "Give a new password!", Type.ERROR_MESSAGE).show(Page.getCurrent());
-						newPassFirst.addValidator(new StringLengthValidator("Password must not be empty", 1, 10, true));
+					if (newPassFirst.getValue().equals(Messages.getString("ProfilWindow.19"))) { //$NON-NLS-1$
+						new Notification(Messages.getString("ProfilWindow.20"), Messages.getString("ProfilWindow.21"), Type.ERROR_MESSAGE).show(Page.getCurrent()); //$NON-NLS-1$ //$NON-NLS-2$
+						newPassFirst.addValidator(new StringLengthValidator(Messages.getString("ProfilWindow.22"), 1, 10, true)); //$NON-NLS-1$
 						newPassSecond
-								.addValidator(new StringLengthValidator("Password must not be empty", 1, 10, true));
+								.addValidator(new StringLengthValidator(Messages.getString("ProfilWindow.23"), 1, 10, true)); //$NON-NLS-1$
 					} else {
 						changeSuccess = UserService.changePassword(u.getName(), newPassFirst.getValue());
 						if (changeSuccess) {
-							new Notification("Password change", "Success!").show(Page.getCurrent());
+							new Notification(Messages.getString("ProfilWindow.24"), Messages.getString("ProfilWindow.25")).show(Page.getCurrent()); //$NON-NLS-1$ //$NON-NLS-2$
 						} else {
-							new Notification("Password change", "Something was wrong!", Type.ERROR_MESSAGE)
+							new Notification(Messages.getString("ProfilWindow.26"), Messages.getString("ProfilWindow.27"), Type.ERROR_MESSAGE) //$NON-NLS-1$ //$NON-NLS-2$
 									.show(Page.getCurrent());
 							;
 						}
@@ -161,12 +161,12 @@ public class ProfilWindow extends Window {
 						newPassSecond.removeAllValidators();
 					}
 				} else if (oldPassOK == true) {
-					new Notification("Error", "Please give new password twice correctly!", Type.ERROR_MESSAGE)
+					new Notification(Messages.getString("ProfilWindow.28"), Messages.getString("ProfilWindow.29"), Type.ERROR_MESSAGE) //$NON-NLS-1$ //$NON-NLS-2$
 							.show(Page.getCurrent());
 				}
-				oldPassField.setValue("");
-				newPassFirst.setValue("");
-				newPassSecond.setValue("");
+				oldPassField.setValue(Messages.getString("ProfilWindow.30")); //$NON-NLS-1$
+				newPassFirst.setValue(Messages.getString("ProfilWindow.31")); //$NON-NLS-1$
+				newPassSecond.setValue(Messages.getString("ProfilWindow.32")); //$NON-NLS-1$
 			}
 		};
 	}

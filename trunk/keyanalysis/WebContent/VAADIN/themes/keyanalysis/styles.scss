@@ -101,25 +101,36 @@
 }
 
 #chooseButton {
-	margin-top: 2%;
+	margin-top: 5%;
 	padding: initial;
 	overflow: hidden;
 	height: auto;
     padding: 1%;
+}
+
+#mainProfil {
+	margin-top: 5%;
+	margin-right: 2%;
+	padding: initial;
+	overflow: hidden;
+	height: auto;
+    right: 0px;
+    position: absolute;
 }
 
 #loginButton {
-	margin-top: 2%;
+	margin-top: 5%;
+	margin-right: 2%;
 	padding: initial;
 	overflow: hidden;
 	height: auto;
     padding: 1%;
-    top: 5%;
-    right: 40%;
+    right: 0px;
+    position: absolute;
 }
 
 #getTweetsButton {
-	margin-top: 2%;
+	margin-top: 5%;
 	padding: initial;
 	overflow: hidden;
 	height: auto;
@@ -129,7 +140,7 @@
 #downloadButton {
 	right: 0px;
 	position: absolute;
-	margin-top: 2%;
+	margin-top: 5%;
 	padding: initial;
 	overflow: hidden;
 	height: auto;
@@ -150,7 +161,7 @@
 }
 
 #compareButton {
-	margin-top: 2%;
+	margin-top: 5%;
 	padding: initial;
 	overflow: hidden;
 	height: auto;

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 
 import org.hibernate.HibernateException;
 import org.keyanalysis.Model.Log;
@@ -31,7 +32,7 @@ public class LogService {
 
 			em.persist(log);
 			em.getTransaction().commit();
-		} catch (final HibernateException e) {
+		} catch (final HibernateException | RollbackException e) {
 			if (em.getTransaction() != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 				e.printStackTrace();

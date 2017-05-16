@@ -31,26 +31,26 @@ public class LoginWindow extends Window {
 
 	public LoginWindow() {
 		this.setModal(true);
+		this.setResizable(false);
 		this.setDraggable(true);
 		this.center();
 		final VerticalLayout mainLayout = new VerticalLayout();
-		// mainLayout.setWidth(Constants.SIZE_100_PERCENT);
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		final HorizontalLayout loginHorizontalLayout = new HorizontalLayout();
 		loginHorizontalLayout.setMargin(true);
-		loginHorizontalLayout.setId("ID_LOGIN");
+		loginHorizontalLayout.setId(Messages.getString("LoginWindow.0")); //$NON-NLS-1$
 		final VerticalLayout loginLayout = new VerticalLayout();
 		loginLayout.setWidth(null);
 		loginLayout.setSpacing(true);
-		final TextField usernameTextField = new TextField("USERNAME");
-		usernameTextField.setWidth("300px");
-		usernameTextField.setHeight("30px");
+		final TextField usernameTextField = new TextField(Messages.getString("LoginWindow.1")); //$NON-NLS-1$
+		usernameTextField.setWidth(Messages.getString("LoginWindow.2")); //$NON-NLS-1$
+		usernameTextField.setHeight(Messages.getString("LoginWindow.3")); //$NON-NLS-1$
 		usernameTextField.focus();
 		loginLayout.addComponent(usernameTextField);
-		final PasswordField passwordTextField = new PasswordField("PASSWORD");
-		passwordTextField.setWidth("300px");
-		passwordTextField.setHeight("30px");
+		final PasswordField passwordTextField = new PasswordField(Messages.getString("LoginWindow.4")); //$NON-NLS-1$
+		passwordTextField.setWidth(Messages.getString("LoginWindow.5")); //$NON-NLS-1$
+		passwordTextField.setHeight(Messages.getString("LoginWindow.6")); //$NON-NLS-1$
 		loginLayout.addComponent(passwordTextField);
 		final GridLayout buttonGrid = this.createLoginButtonLayout(usernameTextField, passwordTextField);
 		loginLayout.addComponent(buttonGrid);
@@ -63,15 +63,15 @@ public class LoginWindow extends Window {
 
 	private GridLayout createLoginButtonLayout(final TextField usernameTextField,
 			final PasswordField passwordTextField) {
-		this.u = (User) VaadinSession.getCurrent().getAttribute("USER");
+		this.u = (User) VaadinSession.getCurrent().getAttribute(Messages.getString("LoginWindow.7")); //$NON-NLS-1$
 		final GridLayout buttonGrid = new GridLayout(2, 2);
-		buttonGrid.setWidth("300px");
+		buttonGrid.setWidth(Messages.getString("LoginWindow.8")); //$NON-NLS-1$
 		buttonGrid.setSpacing(true);
 		final HorizontalLayout labelPanel = new HorizontalLayout();
 		buttonGrid.addComponent(labelPanel);
 		buttonGrid.setComponentAlignment(labelPanel, Alignment.MIDDLE_LEFT);
-		final Button loginButton = new Button("LOGIN");
-		loginButton.setWidth("150px");
+		final Button loginButton = new Button(Messages.getString("LoginWindow.9")); //$NON-NLS-1$
+		loginButton.setWidth(Messages.getString("LoginWindow.10")); //$NON-NLS-1$
 		loginButton.setClickShortcut(KeyCode.ENTER);
 		loginButton.addClickListener(new ClickListener() {
 
@@ -83,34 +83,33 @@ public class LoginWindow extends Window {
 						.setValue(org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(usernameTextField.getValue()));
 				passwordTextField
 						.setValue(org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(passwordTextField.getValue()));
-				if (!"".equals(usernameTextField.getValue()) && !"".equals(passwordTextField.getValue())) {
-					// TODO: getSafeValues(usernameTextField.getValue())
+				if (!Messages.getString("LoginWindow.11").equals(usernameTextField.getValue()) && !Messages.getString("LoginWindow.12").equals(passwordTextField.getValue())) { //$NON-NLS-1$ //$NON-NLS-2$
 					LoginWindow.this.u = new User();
 					final boolean success = LoginService.signIn(usernameTextField.getValue(),
 							passwordTextField.getValue(), LoginWindow.this.u);
 					if (success) {
-						LoginWindow.this.getSession().setAttribute("USER", LoginWindow.this.u);
+						LoginWindow.this.getSession().setAttribute(Messages.getString("LoginWindow.13"), LoginWindow.this.u); //$NON-NLS-1$
 						((KeyanalysisUI) UI.getCurrent()).setLoggedUser(LoginWindow.this.u);
-						LogService.AddLogEntry("Login Success", null, "Login");
+						LogService.AddLogEntry(Messages.getString("LoginWindow.14"), null, Messages.getString("LoginWindow.15")); //$NON-NLS-1$ //$NON-NLS-2$
 						UI.getCurrent().getPage().reload();
 						LoginWindow.this.close();
 					} else {
-						LoginWindow.this.getSession().setAttribute("USER", LoginWindow.this.u);
+						LoginWindow.this.getSession().setAttribute(Messages.getString("LoginWindow.16"), LoginWindow.this.u); //$NON-NLS-1$
 						final User tried = new User();
 						tried.setName(usernameTextField.getValue());
-						LogService.AddLogEntry("Login failed", tried, "Login");
-						(new Notification("LOGIN ERROR", "Error happend", Type.ERROR_MESSAGE)).show(Page.getCurrent());
+						LogService.AddLogEntry(Messages.getString("LoginWindow.17"), tried, Messages.getString("LoginWindow.18")); //$NON-NLS-1$ //$NON-NLS-2$
+						(new Notification(Messages.getString("LoginWindow.19"), Messages.getString("LoginWindow.20"), Type.ERROR_MESSAGE)).show(Page.getCurrent()); //$NON-NLS-1$ //$NON-NLS-2$
 						// ((KeyanalysisUI)UI.getCurrent()).logOut();
 					}
 					((KeyanalysisUI) UI.getCurrent()).setLoggedUser(LoginWindow.this.u);
 				} else {
-					(new Notification("LOGIN ERROR", "Missing datas", Type.ERROR_MESSAGE)).show(Page.getCurrent());
+					(new Notification(Messages.getString("LoginWindow.21"), Messages.getString("LoginWindow.22"), Type.ERROR_MESSAGE)).show(Page.getCurrent()); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 		});
 		buttonGrid.addComponent(loginButton);
 		buttonGrid.setComponentAlignment(loginButton, Alignment.MIDDLE_RIGHT);
-		final Button link = new Button("Registration", new ClickListener() {
+		final Button link = new Button(Messages.getString("LoginWindow.23"), new ClickListener() { //$NON-NLS-1$
 			private static final long serialVersionUID = 1L;
 
 			@Override

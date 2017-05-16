@@ -2,6 +2,7 @@ package org.keyanalysis.View.Windows;
 
 import javax.persistence.EntityManager;
 
+import org.keyanalysis.Model.Item;
 import org.keyanalysis.Model.Log;
 import org.keyanalysis.Model.Storage;
 import org.keyanalysis.Model.User;
@@ -37,7 +38,7 @@ public class TableCreatorUtility {
 	private Table table;
 	private JPAContainer<?> jpaContainer;
 	private Filter filter;
-	private final Filter deletedFilter = new Compare.Equal("deleted", false);
+	private final Filter deletedFilter = new Compare.Equal(Messages.getString("TableCreatorUtility.0"), false); //$NON-NLS-1$
 	private TextField searchField;
 	private Button addButton;
 	private Button rerunButton;
@@ -75,8 +76,8 @@ public class TableCreatorUtility {
 		this.jpaContainer = JPAContainerFactory.makeNonCached(this.containerClass, entityManager);
 		this.jpaContainer.addContainerFilter(this.deletedFilter);
 		if (this.containerClass.isAssignableFrom(org.keyanalysis.Model.Item.class)) {
-			this.jpaContainer.addContainerFilter(new Compare.Equal("storage", this.user.getStorage()));
-			// System.out.println(user.getStorage().getId());
+			this.jpaContainer.addContainerFilter(
+					new Compare.Equal(Messages.getString("TableCreatorUtility.1"), this.user.getStorage())); //$NON-NLS-1$
 		}
 		this.table = new Table(null, this.jpaContainer);
 		this.setTableColumns();
@@ -106,26 +107,31 @@ public class TableCreatorUtility {
 	private GridLayout createTitleGrid() {
 		final GridLayout titleGrid = new GridLayout(8, 1);
 		titleGrid.setSizeFull();
-		titleGrid.setHeight("60px");
+		titleGrid.setHeight(Messages.getString("TableCreatorUtility.2")); //$NON-NLS-1$
 		final Label titleLabel = new Label(this.title);
 		titleGrid.addComponent(titleLabel, 0, 0);
 		titleGrid.setComponentAlignment(titleLabel, Alignment.BOTTOM_LEFT);
-		this.addButton = new Button("Add");
-		this.copyButton = new Button("Copy");
-		this.rerunButton = new Button("Rerun");
-		this.removeButton = new Button("Remove");
+		this.addButton = new Button(Messages.getString("TableCreatorUtility.3")); //$NON-NLS-1$
+		// this.addButton.setWidth("120px");
+		this.copyButton = new Button(Messages.getString("TableCreatorUtility.4")); //$NON-NLS-1$
+		// this.copyButton.setWidth("120px");
+		this.rerunButton = new Button(Messages.getString("TableCreatorUtility.5")); //$NON-NLS-1$
+		// this.rerunButton.setWidth("120px");
+		this.removeButton = new Button(Messages.getString("TableCreatorUtility.6")); //$NON-NLS-1$
+		// this.removeButton.setWidth("120px");
 		this.searchField = new TextField();
-		this.searchField.setWidth("250px");
-		this.searchField.setHeight("60px");
-		final Button searchButton = new Button("Search");
-		this.setButtonStyle(this.addButton, "NEW");
-		this.setButtonStyle(this.copyButton, "COPY");
-		this.setButtonStyle(this.rerunButton, "RERUN");
-		this.setButtonStyle(this.removeButton, "REMOVE");
-		this.setButtonStyle(searchButton, "SEARCH");
+		this.searchField.setWidth(Messages.getString("TableCreatorUtility.7")); //$NON-NLS-1$
+		this.searchField.setHeight(Messages.getString("TableCreatorUtility.8")); //$NON-NLS-1$
+		final Button searchButton = new Button(Messages.getString("TableCreatorUtility.9")); //$NON-NLS-1$
+		this.setButtonStyle(this.addButton, Messages.getString("TableCreatorUtility.10")); //$NON-NLS-1$
+		this.setButtonStyle(this.copyButton, Messages.getString("TableCreatorUtility.11")); //$NON-NLS-1$
+		this.setButtonStyle(this.rerunButton, Messages.getString("TableCreatorUtility.12")); //$NON-NLS-1$
+		this.setButtonStyle(this.removeButton, Messages.getString("TableCreatorUtility.13")); //$NON-NLS-1$
+		this.setButtonStyle(searchButton, Messages.getString("TableCreatorUtility.14")); //$NON-NLS-1$
 		searchButton.setClickShortcut(KeyCode.ENTER);
-		if (!this.containerClass.isAssignableFrom(Log.class)) {
-			if (((User) VaadinSession.getCurrent().getAttribute("USER")).equals(this.user)) {
+		if (this.containerClass.isAssignableFrom(Item.class)) {
+			if (((User) VaadinSession.getCurrent().getAttribute(Messages.getString("TableCreatorUtility.15"))) //$NON-NLS-1$
+					.equals(this.user)) {
 				titleGrid.addComponent(this.addButton, 1, 0);
 				titleGrid.addComponent(this.rerunButton, 2, 0);
 				titleGrid.addComponent(this.removeButton, 3, 0);
@@ -149,10 +155,14 @@ public class TableCreatorUtility {
 				if (event.isDoubleClick()) {
 					TableCreatorUtility.this.window.close();
 					final User u = new User();
-					u.setDeleted((boolean) event.getItem().getItemProperty("deleted").getValue());
-					u.setName(event.getItem().getItemProperty("name").getValue().toString());
-					u.setPassword(event.getItem().getItemProperty("password").getValue().toString());
-					u.setStorage((Storage) event.getItem().getItemProperty("storage").getValue());
+					u.setDeleted((boolean) event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.16")) //$NON-NLS-1$
+							.getValue());
+					u.setName(event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.17")).getValue() //$NON-NLS-1$
+							.toString());
+					u.setPassword(event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.18")) //$NON-NLS-1$
+							.getValue().toString());
+					u.setStorage((Storage) event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.19")) //$NON-NLS-1$
+							.getValue());
 					UI.getCurrent().addWindow(new StorageWindow(u));
 				}
 			}
@@ -168,8 +178,10 @@ public class TableCreatorUtility {
 				if (event.isDoubleClick()) {
 					TableCreatorUtility.this.window.close();
 					final ProcessService ps = new ProcessService(
-							(String) event.getItem().getItemProperty("name").getValue(),
-							(String) event.getItem().getItemProperty("filePath").getValue());
+							(String) event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.20")) //$NON-NLS-1$
+									.getValue(),
+							(String) event.getItem().getItemProperty(Messages.getString("TableCreatorUtility.21")) //$NON-NLS-1$
+									.getValue());
 					((KeyanalysisUI) UI.getCurrent()).setProcess(ps);
 					((KeyanalysisUI) UI.getCurrent()).getProcess().makeCharts();
 					((KeyanalysisUI) UI.getCurrent()).downloadButtonEnable(true);
@@ -180,21 +192,25 @@ public class TableCreatorUtility {
 
 	private void setTableColumns() {
 		if (this.containerClass.isAssignableFrom(User.class)) {
-			this.table.setVisibleColumns(new Object[] { "name" });
-			this.table.setColumnHeaders("Name");
-			this.table.setSortContainerPropertyId("name");
+			this.table.setVisibleColumns(new Object[] { Messages.getString("TableCreatorUtility.22") }); //$NON-NLS-1$
+			this.table.setColumnHeaders(Messages.getString("TableCreatorUtility.23")); //$NON-NLS-1$
+			this.table.setSortContainerPropertyId(Messages.getString("TableCreatorUtility.24")); //$NON-NLS-1$
 			this.table.setSortAscending(true);
 		}
 		if (this.containerClass.isAssignableFrom(org.keyanalysis.Model.Item.class)) {
-			this.table.setVisibleColumns(new Object[] { "name", "time", "benchmark" });
-			this.table.setColumnHeaders("Name", "Time", "Benchmark");
-			this.table.setSortContainerPropertyId("time");
+			this.table.setVisibleColumns(new Object[] { Messages.getString("TableCreatorUtility.25"), //$NON-NLS-1$
+					Messages.getString("TableCreatorUtility.26"), Messages.getString("TableCreatorUtility.27") }); //$NON-NLS-1$ //$NON-NLS-2$
+			this.table.setColumnHeaders(Messages.getString("TableCreatorUtility.28"), //$NON-NLS-1$
+					Messages.getString("TableCreatorUtility.29"), Messages.getString("TableCreatorUtility.30")); //$NON-NLS-1$ //$NON-NLS-2$
+			this.table.setSortContainerPropertyId(Messages.getString("TableCreatorUtility.31")); //$NON-NLS-1$
 			this.table.setSortAscending(false);
 		}
 		if (this.containerClass.isAssignableFrom(Log.class)) {
-			this.table.setVisibleColumns(new Object[] { "username", "action", "time" });
-			this.table.setColumnHeaders("Username", "Action", "Time");
-			this.table.setSortContainerPropertyId("time");
+			this.table.setVisibleColumns(new Object[] { Messages.getString("TableCreatorUtility.32"), //$NON-NLS-1$
+					Messages.getString("TableCreatorUtility.33"), Messages.getString("TableCreatorUtility.34") }); //$NON-NLS-1$ //$NON-NLS-2$
+			this.table.setColumnHeaders(Messages.getString("TableCreatorUtility.35"), //$NON-NLS-1$
+					Messages.getString("TableCreatorUtility.36"), Messages.getString("TableCreatorUtility.37")); //$NON-NLS-1$ //$NON-NLS-2$
+			this.table.setSortContainerPropertyId(Messages.getString("TableCreatorUtility.38")); //$NON-NLS-1$
 			this.table.setSortAscending(false);
 		}
 	}
@@ -209,7 +225,10 @@ public class TableCreatorUtility {
 				final Filter[] filterList = new Filter[TableCreatorUtility.this.table.getVisibleColumns().length];
 				for (int i = 0; i < TableCreatorUtility.this.table.getVisibleColumns().length; ++i) {
 					filterList[i] = new Like(TableCreatorUtility.this.table.getVisibleColumns()[i],
-							"%" + TableCreatorUtility.this.searchField.getValue() + "%", false);
+							Messages.getString("TableCreatorUtility.39") //$NON-NLS-1$
+									+ TableCreatorUtility.this.searchField.getValue()
+									+ Messages.getString("TableCreatorUtility.40"), //$NON-NLS-1$
+							false);
 				}
 				TableCreatorUtility.this.filter = new Or(filterList);
 				TableCreatorUtility.this.jpaContainer.addContainerFilter(TableCreatorUtility.this.filter);
@@ -219,9 +238,9 @@ public class TableCreatorUtility {
 	}
 
 	private void setButtonStyle(final Button button, final String desc) {
-		button.setWidth("60px");
-		button.setHeight("60px");
-		button.setStyleName("nopadding noborder");
+		button.setWidth(Messages.getString("TableCreatorUtility.41")); //$NON-NLS-1$
+		button.setHeight(Messages.getString("TableCreatorUtility.42")); //$NON-NLS-1$
+		button.setStyleName(Messages.getString("TableCreatorUtility.43")); //$NON-NLS-1$
 		button.setDescription(desc);
 	}
 

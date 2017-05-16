@@ -38,8 +38,6 @@ import jonelo.jacksum.algorithm.AbstractChecksum;
  */
 public final class DigestService {
 	private static Cipher cipher;
-	// private static SecretKey sKey = new
-	// SecretKeySpec("egik5utjgp8mi1xv".getBytes(), "AES");
 	private static SecretKey sKey = new SecretKeySpec("egik5utjgp8mi1xv94lx9af82gh0neds".getBytes(), "AES");
 
 	public static SecretKey generateRandomKeyWithInsideAlg() {

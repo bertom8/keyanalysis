@@ -14,6 +14,8 @@ import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
 import org.keyanalysis.Model.Tweet;
 
+import com.vaadin.server.VaadinServlet;
+
 import twitter4j.Status;
 
 public class TweetService {
@@ -74,12 +76,17 @@ public class TweetService {
 		return succeeded;
 	}
 
-	public static void appendTweetFile(final File file) {
+	public static void appendTweetFile(final File file, final String end) {
+		if (!file.exists()) {
+			System.out.println("Nincs ilyen file");
+		}
 		PrintWriter pw = null;
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
-			pw = new PrintWriter(new BufferedWriter(new FileWriter(new File("data/twitter.txt"), true)));
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(new File(
+					VaadinServlet.getCurrent().getServletContext().getRealPath("") + "uploadDatas/twitter.txt" + end),
+					true)));
 			String txt;
 			while ((txt = br.readLine()) != null) {
 				pw.println(txt);
@@ -101,10 +108,12 @@ public class TweetService {
 		}
 	}
 
-	private static void appendTweetFile(final String txt) {
+	public static void appendTweetFile(final String txt) {
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new BufferedWriter(new FileWriter(new File("data/newtweets.txt"), true)));
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(new File(
+					VaadinServlet.getCurrent().getServletContext().getRealPath("") + "/uploadDatas/newTweets.txt"),
+					true)));
 			pw.println(txt);
 		} catch (final IOException e) {
 			e.printStackTrace();

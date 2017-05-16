@@ -35,22 +35,22 @@ public class RegWindow extends Window {
 		mainLayout.setSpacing(true);
 		final HorizontalLayout loginHorizontalLayout = new HorizontalLayout();
 		loginHorizontalLayout.setMargin(true);
-		loginHorizontalLayout.setId("ID_LOGIN");
+		loginHorizontalLayout.setId(Messages.getString("RegWindow.0")); //$NON-NLS-1$
 		final VerticalLayout loginLayout = new VerticalLayout();
 		loginLayout.setWidth(null);
 		loginLayout.setSpacing(true);
-		final TextField usernameTextField = new TextField("USERNAME");
-		usernameTextField.setWidth("300px");
-		usernameTextField.setHeight("30px");
+		final TextField usernameTextField = new TextField(Messages.getString("RegWindow.1")); //$NON-NLS-1$
+		usernameTextField.setWidth(Messages.getString("RegWindow.2")); //$NON-NLS-1$
+		usernameTextField.setHeight(Messages.getString("RegWindow.3")); //$NON-NLS-1$
 		usernameTextField.focus();
 		loginLayout.addComponent(usernameTextField);
-		final PasswordField passwordTextField = new PasswordField("PASSWORD");
-		passwordTextField.setWidth("300px");
-		passwordTextField.setHeight("30px");
+		final PasswordField passwordTextField = new PasswordField(Messages.getString("RegWindow.4")); //$NON-NLS-1$
+		passwordTextField.setWidth(Messages.getString("RegWindow.5")); //$NON-NLS-1$
+		passwordTextField.setHeight(Messages.getString("RegWindow.6")); //$NON-NLS-1$
 		loginLayout.addComponent(passwordTextField);
-		final PasswordField passwordTextField2 = new PasswordField("PASSWORD AGAIN");
-		passwordTextField2.setWidth("300px");
-		passwordTextField2.setHeight("30px");
+		final PasswordField passwordTextField2 = new PasswordField(Messages.getString("RegWindow.7")); //$NON-NLS-1$
+		passwordTextField2.setWidth(Messages.getString("RegWindow.8")); //$NON-NLS-1$
+		passwordTextField2.setHeight(Messages.getString("RegWindow.9")); //$NON-NLS-1$
 		loginLayout.addComponent(passwordTextField2);
 		final GridLayout buttonGrid = this.createRegButtonLayout(usernameTextField, passwordTextField,
 				passwordTextField2);
@@ -65,13 +65,13 @@ public class RegWindow extends Window {
 	private GridLayout createRegButtonLayout(final TextField usernameTextField, final PasswordField passwordTextField,
 			final PasswordField passwordTextField2) {
 		final GridLayout buttonGrid = new GridLayout(2, 1);
-		buttonGrid.setWidth("300px");
+		buttonGrid.setWidth(Messages.getString("RegWindow.10")); //$NON-NLS-1$
 		buttonGrid.setSpacing(true);
 		final HorizontalLayout labelPanel = new HorizontalLayout();
 		buttonGrid.addComponent(labelPanel);
 		buttonGrid.setComponentAlignment(labelPanel, Alignment.MIDDLE_LEFT);
-		final Button loginButton = new Button("Registration");
-		loginButton.setWidth("150px");
+		final Button loginButton = new Button(Messages.getString("RegWindow.11")); //$NON-NLS-1$
+		loginButton.setWidth(Messages.getString("RegWindow.12")); //$NON-NLS-1$
 		loginButton.setClickShortcut(KeyCode.ENTER);
 		loginButton.addClickListener(new ClickListener() {
 
@@ -85,8 +85,8 @@ public class RegWindow extends Window {
 						.setValue(org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(passwordTextField.getValue()));
 				passwordTextField2.setValue(
 						org.apache.commons.lang3.StringEscapeUtils.escapeHtml4(passwordTextField2.getValue()));
-				if (!"".equals(usernameTextField.getValue()) && !"".equals(passwordTextField.getValue())
-						&& !"".equals(passwordTextField2.getValue())) {
+				if (!Messages.getString("RegWindow.13").equals(usernameTextField.getValue()) && !Messages.getString("RegWindow.14").equals(passwordTextField.getValue()) //$NON-NLS-1$ //$NON-NLS-2$
+						&& !Messages.getString("RegWindow.15").equals(passwordTextField2.getValue())) { //$NON-NLS-1$
 					final boolean free = UserService.findAUser(usernameTextField.getValue(), new User());
 					if (!free) {
 						if (passwordTextField.getValue().equals(passwordTextField2.getValue())) {
@@ -94,15 +94,15 @@ public class RegWindow extends Window {
 									LoginService.hashing(passwordTextField.getValue()), StorageService.addStorage());
 							UI.getCurrent().getPage().reload();
 						} else {
-							(new Notification("USERNAME/PASS ERROR", "Error happend", Type.ERROR_MESSAGE))
+							(new Notification(Messages.getString("RegWindow.16"), Messages.getString("RegWindow.17"), Type.ERROR_MESSAGE)) //$NON-NLS-1$ //$NON-NLS-2$
 									.show(Page.getCurrent());
 						}
 					} else {
-						(new Notification("USERNAME/PASS ERROR", "Error happend2", Type.ERROR_MESSAGE))
+						(new Notification(Messages.getString("RegWindow.18"), Messages.getString("RegWindow.19"), Type.ERROR_MESSAGE)) //$NON-NLS-1$ //$NON-NLS-2$
 								.show(Page.getCurrent());
 					}
 				} else {
-					(new Notification("USERNAME/PASS ERROR", "Missing datas", Type.ERROR_MESSAGE))
+					(new Notification(Messages.getString("RegWindow.20"), Messages.getString("RegWindow.21"), Type.ERROR_MESSAGE)) //$NON-NLS-1$ //$NON-NLS-2$
 							.show(Page.getCurrent());
 				}
 			}
